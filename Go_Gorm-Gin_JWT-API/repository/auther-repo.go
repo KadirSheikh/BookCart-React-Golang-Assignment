@@ -17,6 +17,7 @@ type AutherRepository interface {
 	IsDuplicateEmail(email string) (tx *gorm.DB)
 	FindByEmail(email string) modal.Auther
 	ProfileAuther(autherID string) modal.Auther
+	AllAuthers() []modal.Auther
 }
 
 type autherConnection struct {
@@ -89,4 +90,10 @@ func hashAndSalt(pwd []byte) string {
 		panic("Failed to hash a password")
 	}
 	return string(hash)
+}
+
+func (db *autherConnection) AllAuthers() []modal.Auther {
+	var authers []modal.Auther
+	db.connection.Preload("Auther").Find(&authers)
+	return authers
 }

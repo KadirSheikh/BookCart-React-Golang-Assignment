@@ -12,6 +12,7 @@ import (
 
 type AutherService interface {
 	Update(auther dto.AutherUpdateDTO) modal.Auther
+	All() []modal.Auther
 	Profile(autherID string) modal.Auther
 }
 
@@ -34,6 +35,10 @@ func (service *autherService) Update(auther dto.AutherUpdateDTO) modal.Auther {
 	}
 	updatedAuther := service.autherRepository.UpdateAuther(autherToUpdate)
 	return updatedAuther
+}
+
+func (service *autherService) All() []modal.Auther {
+	return service.autherRepository.AllAuthers()
 }
 
 func (service *autherService) Profile(autherID string) modal.Auther {

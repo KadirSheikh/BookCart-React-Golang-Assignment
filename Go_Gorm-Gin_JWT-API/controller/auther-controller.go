@@ -7,6 +7,7 @@ import (
 
 	"gin_gorm_jwt/dto"
 	"gin_gorm_jwt/helper"
+	"gin_gorm_jwt/modal"
 	"gin_gorm_jwt/service"
 
 	"github.com/dgrijalva/jwt-go"
@@ -15,6 +16,7 @@ import (
 
 type AutherController interface {
 	Update(context *gin.Context)
+	GetAll(context *gin.Context)
 	Profile(context *gin.Context)
 }
 
@@ -53,6 +55,12 @@ func (c *autherController) Update(context *gin.Context) {
 	autherUpdateDTO.ID = id
 	u := c.autherService.Update(autherUpdateDTO)
 	res := helper.BuildSuccessResponse(true, "OK!", u)
+	context.JSON(http.StatusOK, res)
+}
+
+func (c *autherController) GetAll(context *gin.Context) {
+	var authers []modal.Auther = c.autherService.All()
+	res := helper.BuildSuccessResponse(true, "OK", authers)
 	context.JSON(http.StatusOK, res)
 }
 
