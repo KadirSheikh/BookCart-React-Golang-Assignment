@@ -1,17 +1,36 @@
+import { NavLink } from "react-router-dom";
 import { Fragment } from "react";
-import mealImg from "../../assets/meals.jpg";
+import BookImg from "../../assets/books.jpg";
 import classes from "./Header.module.css";
-import HeaderCartButton from "../Layout/HeaderCartButton";
+import HeaderProfileButton from "./HeaderProfileButton";
 
 const Header = (props) => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  let isNull;
+  if (isLoggedIn === null) {
+    isNull = true;
+  } else {
+    isNull = false;
+  }
+
   return (
     <Fragment>
       <header className={classes.header}>
-        <h1>Book Cart</h1>
-        <HeaderCartButton onClick={props.onShowCart} />
+        <div className={classes.logo}>Book Cart</div>
+        {isNull && (
+          <nav className={classes.nav}>
+            <ul>
+              <li>
+                <NavLink to="/login">Login</NavLink>
+              </li>
+            </ul>
+          </nav>
+        )}
+        {!isNull && <HeaderProfileButton onClick={props.onShowProfile} />}
       </header>
       <div className={classes["main-image"]}>
-        <img src={mealImg} alt="mealImg" />
+        <img src={BookImg} alt="BookImg" />
       </div>
     </Fragment>
   );

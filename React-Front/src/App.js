@@ -1,28 +1,34 @@
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import React, { useState } from "react";
 import Header from "./components/Layout/Header";
-import Meals from "./components/Meal/Meals";
-import Cart from "./components/Cart/Cart";
-import CartProvider from "./store/CartProvider";
+import Books from "./components/Book/Books";
+import Profile from "./components/Profile/Profile";
+
+import Login from "./components/Authentication/Login";
+import Registration from "./components/Authentication/Registration";
 
 function App() {
-  const [isCartShown, setIsCartShown] = useState(false);
+  const [isProfileShown, setIsProfileShown] = useState(false);
 
-  const showCartHandler = () => {
-    setIsCartShown(true);
+  const showProfileHandler = () => {
+    setIsProfileShown(true);
   };
 
-  const hideCartHandler = () => {
-    setIsCartShown(false);
+  const hideProfileHandler = () => {
+    setIsProfileShown(false);
   };
 
   return (
-    <CartProvider>
-      {isCartShown && <Cart onHideCart={hideCartHandler} />}
-      <Header onShowCart={showCartHandler} />
-      <main>
-        <Meals />
-      </main>
-    </CartProvider>
+    <BrowserRouter>
+      {isProfileShown && <Profile onHideProfile={hideProfileHandler} />}
+      <Header onShowProfile={showProfileHandler} />
+      <Routes>
+        <Route path="/" element={<Registration />} />
+        <Route path="/books" element={<Books />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Registration />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

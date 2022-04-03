@@ -37,6 +37,7 @@ func main() {
 	// CORSMiddleware()
 	//root route
 	r := gin.Default()
+	r.Use(middleware.CORS)
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
@@ -45,7 +46,7 @@ func main() {
 	})
 
 	// auther login register route group
-	authRoutes := r.Group("api/auth", middleware.CORSMiddleware())
+	authRoutes := r.Group("api/auth")
 	// authRoutes := r.Group("api/auth", middleware.AuthorizeJWT(jwtService))
 	{
 		authRoutes.POST("/login", authController.Login)
@@ -53,7 +54,7 @@ func main() {
 	}
 
 	//auther get profile and update profile route group
-	autherRoutes := r.Group("api/auther", middleware.CORSMiddleware(), middleware.AuthorizeJWT(jwtService))
+	autherRoutes := r.Group("api/auther", middleware.AuthorizeJWT(jwtService))
 	{
 		autherRoutes.GET("/getAll", autherController.GetAll)
 		autherRoutes.GET("/profile", autherController.Profile)
@@ -61,8 +62,8 @@ func main() {
 	}
 
 	//book CRUD operation route group
-	bookRoutes := r.Group("api/books", middleware.CORSMiddleware(), middleware.AuthorizeJWT(jwtService))
-	// bookRoutes := r.Group("api/books", middleware.CORSMiddleware())
+	// bookRoutes := r.Group("api/books", middleware.AuthorizeJWT(jwtService))
+	bookRoutes := r.Group("api/books", middleware.AuthorizeJWT(jwtService))
 	{
 		bookRoutes.GET("/", bookController.All)
 		bookRoutes.POST("/", bookController.Insert)
