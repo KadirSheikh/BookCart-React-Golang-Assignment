@@ -1,8 +1,8 @@
 .form {
   margin: auto;
-  height: 17rem;
+  height: 18rem;
   width: 20rem;
-  overflow: auto;
+  /* overflow: auto; */
   background-color: white;
   text-align: center;
   padding: 1rem;;

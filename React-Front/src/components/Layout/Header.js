@@ -2,7 +2,6 @@ import { NavLink } from "react-router-dom";
 import { Fragment } from "react";
 import BookImg from "../../assets/books.jpg";
 import classes from "./Header.module.css";
-import HeaderProfileButton from "./HeaderProfileButton";
 
 const Header = (props) => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -27,7 +26,17 @@ const Header = (props) => {
             </ul>
           </nav>
         )}
-        {!isNull && <HeaderProfileButton onClick={props.onShowProfile} />}
+
+        {!isNull && (
+          <nav className={classes.nav}>
+            <ul>
+              <li>
+                <NavLink to="/books">Books</NavLink>
+              </li>
+              <li onClick={props.onShowProfile}>My Profile</li>
+            </ul>
+          </nav>
+        )}
       </header>
       <div className={classes["main-image"]}>
         <img src={BookImg} alt="BookImg" />

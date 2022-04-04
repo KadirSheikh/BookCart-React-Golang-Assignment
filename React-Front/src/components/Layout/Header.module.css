@@ -39,12 +39,15 @@
   display: flex;
   margin: 0;
   padding: 0;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .nav li {
   margin-left: 1.5rem;
   font-size: 1.25rem;
 }
+
 
 .nav a {
   text-decoration: none;

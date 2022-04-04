@@ -26,17 +26,17 @@ const Login = () => {
     setIsLogging(true);
 
     const enteredEmail = emailRef.current.value;
-    const enteredPostalCode = passwordRef.current.value;
+    const enteredPassword = passwordRef.current.value;
 
     const enteredEmailIsValid = isEmail(enteredEmail);
-    const enteredPostalCodeIsValid = isFiveChar(enteredPostalCode);
+    const enteredPasswordIsValid = isFiveChar(enteredPassword);
 
     setFormInputValidity({
       email: enteredEmailIsValid,
-      password: enteredPostalCodeIsValid,
+      password: enteredPasswordIsValid,
     });
 
-    const formIsValid = enteredEmailIsValid && enteredPostalCodeIsValid;
+    const formIsValid = enteredEmailIsValid && enteredPasswordIsValid;
 
     if (!formIsValid) {
       setIsLogging(false);
@@ -46,12 +46,12 @@ const Login = () => {
 
     console.log({
       email: enteredEmail,
-      password: enteredPostalCode,
+      password: enteredPassword,
     });
 
     const resData = await loginAuther({
       email: enteredEmail,
-      password: enteredPostalCode,
+      password: enteredPassword,
     });
 
     if (resData.status) {

@@ -7,6 +7,8 @@ import Profile from "./components/Profile/Profile";
 import Login from "./components/Authentication/Login";
 import Registration from "./components/Authentication/Registration";
 
+import MyBooks from "./components/Book/MyBooks";
+
 function App() {
   const [isProfileShown, setIsProfileShown] = useState(false);
 
@@ -25,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Registration />} />
         <Route path="/books" element={<Books />} />
+        <Route path="/mybooks" element={<MyBooks />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
       </Routes>
