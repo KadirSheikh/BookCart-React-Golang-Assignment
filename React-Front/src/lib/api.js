@@ -61,7 +61,7 @@ export async function getMyBooks() {
 
   for (const key in resData.data.books) {
     loadedBooks.push({
-      id: key,
+      id: resData.data.books[key].id,
       name: resData.data.books[key].title,
       description: resData.data.books[key].description,
       auther: resData.data.books[key].auther.name,
@@ -75,6 +75,19 @@ export async function addNewBook(bookData) {
   const response = await fetch(`${ROOT_ROUTE}/books/`, {
     method: "POST",
     body: JSON.stringify(bookData),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+  const resData = await response.json();
+
+  return resData;
+}
+
+export async function deleteBook(bookID) {
+  const response = await fetch(`${ROOT_ROUTE}/books/${bookID}`, {
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("token"),

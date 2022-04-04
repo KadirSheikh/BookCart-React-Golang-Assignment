@@ -25,7 +25,7 @@ const AvailableBooks = () => {
 
         for (const key in books.data) {
           loadedBooks.push({
-            id: key,
+            id: books.data[key].id,
             name: books.data[key].title,
             description: books.data[key].description,
             auther: books.data[key].auther.name,

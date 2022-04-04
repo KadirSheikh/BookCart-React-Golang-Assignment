@@ -46,17 +46,31 @@
   }
 
   .editBtn{
-    background-color: lightblue;
+    background-color: #4286BD;
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius:10px;
     margin-right: 1rem;
 
   }
   .deleteBtn{
-    background-color: lightcoral;
+    background-color: #D11A2A;
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius:10px;
 
+  }
+
+  .dltSuccess{
+    text-align: center;
+    background-color: lightgreen;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border-radius:10px;
+  }
+
+  .dltError{
+    text-align: center;
+    background-color: lightcoral;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border-radius:10px;
   }
   
   @keyframes Books-appear {
