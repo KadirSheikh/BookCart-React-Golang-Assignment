@@ -28,20 +28,20 @@ const Registration = () => {
 
     const enteredName = nameRef.current.value;
     const enteredEmail = emailRef.current.value;
-    const enteredPostalCode = passwordRef.current.value;
+    const enteredPassword = passwordRef.current.value;
 
     const enteredNameIsValid = !isEmpty(enteredName);
     const enteredEmailIsValid = isEmail(enteredEmail);
-    const enteredPostalCodeIsValid = isFiveChar(enteredPostalCode);
+    const enteredPasswordIsValid = isFiveChar(enteredPassword);
 
     setFormInputValidity({
       name: enteredNameIsValid,
       email: enteredEmailIsValid,
-      password: enteredPostalCodeIsValid,
+      password: enteredPasswordIsValid,
     });
 
     const formIsValid =
-      enteredNameIsValid && enteredEmailIsValid && enteredPostalCodeIsValid;
+      enteredNameIsValid && enteredEmailIsValid && enteredPasswordIsValid;
 
     if (!formIsValid) {
       return;
@@ -50,13 +50,13 @@ const Registration = () => {
     console.log({
       name: enteredName,
       email: enteredEmail,
-      password: enteredPostalCode,
+      password: enteredPassword,
     });
 
     const resData = await registerAuther({
       name: enteredName,
       email: enteredEmail,
-      password: enteredPostalCode,
+      password: enteredPassword,
     });
 
     if (resData.status) {

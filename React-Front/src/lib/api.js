@@ -97,3 +97,43 @@ export async function deleteBook(bookID) {
 
   return resData;
 }
+
+export async function getBookById(bookId) {
+  const response = await fetch(`${ROOT_ROUTE}/books/${bookId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+  const resData = await response.json();
+
+  return resData;
+}
+
+export async function editBook(bookData, bookId) {
+  const response = await fetch(`${ROOT_ROUTE}/books/${bookId}`, {
+    method: "PUT",
+    body: JSON.stringify(bookData),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+  const resData = await response.json();
+
+  return resData;
+}
+
+export async function editProfile(authorData) {
+  const response = await fetch(`${ROOT_ROUTE}/auther/profile`, {
+    method: "PUT",
+    body: JSON.stringify(authorData),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+  const resData = await response.json();
+
+  return resData;
+}

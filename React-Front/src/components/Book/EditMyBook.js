@@ -1,9 +1,14 @@
-import Modal from "../UI/Modal";
-import classes from "./AddMyBook.module.css";
-import { useRef, useState } from "react";
-import { addNewBook } from "../../lib/api";
+import classes from "./EditMyBook.module.css";
+import { useRef, useState, Fragment, useEffect } from "react";
+import { getBookById, editBook } from "../../lib/api";
+import { useParams, useNavigate } from "react-router-dom";
 
-const AddMyBook = (props) => {
+const EditMyBook = (props) => {
+  const navigate = useNavigate();
+
+  const params = useParams();
+  const { bookid } = params;
+
   const [formInputValidity, setFormInputValidity] = useState({
     title: true,
     description: true,
@@ -12,6 +17,22 @@ const AddMyBook = (props) => {
   const [isAdding, setIsAdding] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState();
+  const [title, setTitle] = useState("");
+  const [description, setDesription] = useState("");
+
+  useEffect(() => {
+    async function getMyBookById(bookid) {
+      const resp = await getBookById(bookid);
+      console.log(resp);
+
+      if (resp.status) {
+        setTitle(resp.data.title);
+        setDesription(resp.data.description);
+      }
+    }
+
+    getMyBookById(bookid);
+  }, [bookid]);
 
   const titleRef = useRef();
   const descriptionRef = useRef();
@@ -46,14 +67,18 @@ const AddMyBook = (props) => {
       description: enteredDescription,
     });
 
-    const resData = await addNewBook({
-      title: enteredTitle,
-      description: enteredDescription,
-    });
+    const resData = await editBook(
+      {
+        title: enteredTitle,
+        description: enteredDescription,
+      },
+      bookid
+    );
 
     if (resData.status) {
       setIsSuccess(true);
       setTimeout(() => {
+        navigate("/mybooks");
         window.location.reload();
       }, 500);
     } else {
@@ -72,42 +97,42 @@ const AddMyBook = (props) => {
   }`;
 
   return (
-    <Modal onClose={props.onHideModal}>
+    <Fragment>
       <form className={classes.form} onSubmit={submitHandler}>
-        {isAdding && <p>Adding New Book...</p>}
+        {/* <p>Editing Book...</p> */}
+        {isAdding && <p>Editing Book...</p>}
         {!isAdding && !isSuccess && error && (
           <p className={classes.error}>{error}</p>
         )}
         {!isAdding && isSuccess && (
-          <p className={classes.success}>Added Successfully...!</p>
+          <p className={classes.success}>Edited Successfully...!</p>
         )}
         <div className={titleControlClasses}>
           <label htmlFor="title">Title</label>
-          <input ref={titleRef} type="text" id="title" />
+          <input defaultValue={title} ref={titleRef} type="text" id="title" />
           {!formInputValidity.title && (
             <p className={classes.para}>Please enter book title.</p>
           )}
         </div>
         <div className={descriptionControlClasses}>
           <label htmlFor="description">Description</label>
-          <textarea ref={descriptionRef} type="text" id="descriptionCode" />
+          <textarea
+            ref={descriptionRef}
+            type="text"
+            id="descriptionCode"
+            defaultValue={description}
+          />
           {!formInputValidity.description && (
             <p className={classes.para}>Please enter book description.</p>
           )}
         </div>
 
         <div className={classes.actions}>
-          <button className={classes.submit}>Add</button>
+          <button className={classes.submit}>Edit</button>
         </div>
       </form>
-
-      <div className={classes.actions}>
-        <button className={classes.button} onClick={props.onHideModal}>
-          Close
-        </button>
-      </div>
-    </Modal>
+    </Fragment>
   );
 };
 
-export default AddMyBook;
+export default EditMyBook;

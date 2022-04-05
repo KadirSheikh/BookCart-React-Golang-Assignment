@@ -50,12 +50,16 @@
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius:10px;
     margin-right: 1rem;
+    text-decoration:none;
+    color:black;
+    font-size: 15px;
 
   }
   .deleteBtn{
     background-color: #D11A2A;
     padding: 0.5rem 1rem 0.5rem 1rem;
     border-radius:10px;
+    font-size: 15px;
 
   }
 

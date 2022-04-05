@@ -17,6 +17,7 @@
 
 .actions {
   text-align: right;
+  /* font-size: 1.5rem; */
 }
 
 .actions button {
@@ -27,6 +28,7 @@
   padding: 0.5rem 2rem;
   border-radius: 25px;
   margin-left: 1rem;
+  font-size: 12px;
 }
 
 .actions button:hover,
@@ -76,3 +78,76 @@
   font-size: 1.25rem;
 }
 
+
+.form {
+  margin: auto;
+  height: 10rem;
+  width: 20rem;
+  /* overflow: auto; */
+  background-color: white;
+  /* text-align: center; */
+  padding: 1rem;;
+  margin-top: 1rem;
+  border-radius: 5px;
+  
+}
+
+.control {
+  margin-bottom: 0.5rem;
+}
+
+.control label {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.control input {
+  font: inherit;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 20rem;
+  max-width: 100%;
+}
+
+.invalid label {
+  color: #ca3e51;
+}
+
+.invalid input {
+  border-color: #aa0b20;
+  background-color: #ffeff1;
+}
+
+.para {
+  font-size: 10px;
+  color: red;
+}
+
+
+
+.success{
+  color: green;
+}
+
+.error{
+  color: red;
+}
+
+.changePassword{
+  font: inherit;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #2c0d00;
+  padding: 0.5rem 2rem;
+  border-radius: 25px;
+  margin-left: 1rem;
+  font-size: 12px;
+}
+
+.changePassword:hover,
+.changePassword:active {
+  background-color: #5a1a01;
+  border-color: #5a1a01;
+  color: white;
+}

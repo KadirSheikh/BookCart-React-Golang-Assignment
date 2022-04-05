@@ -4,23 +4,24 @@ import Card from "../UI/Card";
 import { getMyBooks, deleteBook } from "../../lib/api";
 import AddMyBook from "../Book/AddMyBook";
 import ShowAddBookButton from "../Layout/ShowAddBookButton";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import { Link } from "react-router-dom";
 
 const MyBooks = () => {
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
-  const [isProfileShown, setIsProfileShown] = useState(false);
+  const [isModalShown, setIsModalShown] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState("");
   const [deleteError, setDeleteError] = useState("");
 
-  const showProfileHandler = () => {
-    setIsProfileShown(true);
+  const showModalHandler = () => {
+    setIsModalShown(true);
   };
 
-  const hideProfileHandler = () => {
-    setIsProfileShown(false);
+  const hideModalHandler = () => {
+    setIsModalShown(false);
   };
 
   useEffect(() => {
@@ -44,6 +45,7 @@ const MyBooks = () => {
         {
           label: "Yes",
           onClick: async () => {
+            window.scrollTo(0, 0);
             const res = await deleteBook(event.target.id);
 
             console.log(res);
@@ -76,7 +78,10 @@ const MyBooks = () => {
 
   const bookList = books.map((book) => (
     <Fragment key={book.id}>
-      <button className={classes.editBtn}>Edit</button>
+      <Link to={`/mybooks/${book.id}`} className={classes.editBtn}>
+        Edit
+      </Link>
+
       <button
         className={classes.deleteBtn}
         id={book.id}
@@ -97,8 +102,8 @@ const MyBooks = () => {
   return (
     <section className={classes.books}>
       <Card>
-        {isProfileShown && <AddMyBook onHideProfile={hideProfileHandler} />}
-        <ShowAddBookButton onShowProfile={showProfileHandler} />
+        {isModalShown && <AddMyBook onHideModal={hideModalHandler} />}
+        <ShowAddBookButton onShowModal={showModalHandler} />
         {error && (
           <section className={classes.BooksError}>
             <p>{error}</p>
