@@ -117,17 +117,15 @@ const Profile = (props) => {
 
     const enteredPass = newPasswordRef.current.value;
 
-    // const enteredPassIsValid = !isFiveChar(enteredPass);
+    const enteredPassIsValid = isFiveChar(enteredPass);
 
-    // setFormInputValidity({
-    //   password: enteredPassIsValid,
-    // });
+    setFormInputValidity({
+      password: enteredPassIsValid,
+    });
 
-    // const formIsValid = enteredPassIsValid;
-
-    // if (!formIsValid) {
-    //   return;
-    // }
+    if (!enteredPassIsValid) {
+      return;
+    }
 
     console.log({
       name: name,
@@ -135,21 +133,21 @@ const Profile = (props) => {
       password: enteredPass,
     });
 
-    // const resData = await editProfile({
-    // name: name,
-    // email: email,
-    //   password: enteredPass,
-    // });
+    const resData = await editProfile({
+      name: name,
+      email: email,
+      password: enteredPass,
+    });
 
-    // if (resData.status) {
-    //   setIsSuccess(true);
-    //   setTimeout(() => {
-    //     window.location.reload();
-    //   }, 500);
-    // } else {
-    //   setIsLogging(false);
-    //   setError(resData.message);
-    // }
+    if (resData.status) {
+      setIsSuccess(true);
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
+    } else {
+      setIsLogging(false);
+      setError(resData.message);
+    }
 
     setIsLogging(false);
   };
@@ -165,7 +163,7 @@ const Profile = (props) => {
     formInputValidity.email ? "" : classes.invalid
   }`;
   const newPasswordControlClasses = `${classes.control} ${
-    formInputValidity.email ? "" : classes.invalid
+    formInputValidity.password ? "" : classes.invalid
   }`;
 
   const myBookList = books.map((book) => (
@@ -212,22 +210,22 @@ const Profile = (props) => {
       )}
       {isPassChanged && (
         <form className={classes.form} onSubmit={submitPasswordHandler}>
-          {/* {isLogging && <p>Changing Password...</p>}
+          {isLogging && <p>Changing Password...</p>}
           {!isLogging && !isSuccess && error && (
             <p className={classes.error}>{error}</p>
           )}
           {!isLogging && isSuccess && (
             <p className={classes.success}>Password Changed Successfully...!</p>
-          )} */}
+          )}
 
-          <div>
+          <div className={newPasswordControlClasses}>
             <label htmlFor="newPassword">New Password</label>
             <input ref={newPasswordRef} type="text" id="newPassword" />
-            {/* {!formInputValidity.newPassword && (
+            {!formInputValidity.password && (
               <p className={classes.para}>
                 Please enter password of atleast 5 characters long.
               </p>
-            )} */}
+            )}
           </div>
 
           <div className={classes.actions}>
