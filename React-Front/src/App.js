@@ -37,7 +37,7 @@ function App() {
         {!isNull && (
           <Route path="/*" element={<Navigate to="/books" replace />} />
         )}
-        <Route path="/" element={<Registration />} />
+        <Route path="/" element={<Login />} />
         <Route path="/books" element={<Books />} />
         <Route path="/mybooks" element={<MyBooks />} />
         <Route path="/mybooks/:bookid" element={<EditMyBook />} />
