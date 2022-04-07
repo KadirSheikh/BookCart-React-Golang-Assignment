@@ -94,7 +94,7 @@ const Login = () => {
       </div>
       <div className={passwordControlClasses}>
         <label htmlFor="password">Password</label>
-        <input ref={passwordRef} type="text" id="passwordCode" />
+        <input ref={passwordRef} type="password" id="passwordCode" />
         {!formInputValidity.password && (
           <p className={classes.para}>
             Please enter password 5 characters long.

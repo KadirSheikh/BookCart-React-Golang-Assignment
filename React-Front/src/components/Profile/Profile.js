@@ -1,7 +1,9 @@
-import { React, useEffect, useState, useRef } from "react";
+import { React, useEffect, useState, useRef, Fragment } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import classes from "./Profile.module.css";
 import Modal from "../UI/Modal";
+import AddMyBook from "../Book/AddMyBook";
+import ShowAddBookButton from "../Layout/ShowAddBookButton";
 import { autherProfile, editProfile } from "../../lib/api";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -18,12 +20,23 @@ const Profile = (props) => {
 
   const [isLogging, setIsLogging] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isLoadingProfile, setIsLoadingProfile] = useState(false);
   const [isPassChanged, setIsPassChanged] = useState(false);
+  const [isBookEmpty, setIsBookEmpty] = useState(false);
   const [error, setError] = useState();
 
   const nameRef = useRef();
   const emailRef = useRef();
   const newPasswordRef = useRef();
+
+  const [isModalShown, setIsModalShown] = useState(false);
+  const showModalHandler = () => {
+    setIsModalShown(true);
+  };
+
+  const hideModalHandler = () => {
+    setIsModalShown(false);
+  };
 
   const isEmpty = (value) => value.trim() === "";
   const isEmail = (value) => value.includes("@");
@@ -33,17 +46,28 @@ const Profile = (props) => {
   const navigate = useNavigate();
   useEffect(() => {
     async function fetchProfile() {
+      setIsLoadingProfile(true);
       const resData = await autherProfile();
       console.log(resData);
       if (resData.status) {
         setName(resData.data.name);
         setEmail(resData.data.email);
-        const twoBooks = resData.data.books.slice(0, 2);
-        setBooks(twoBooks);
+
+        if (resData.data.books.length !== 0) {
+          const twoBooks = resData.data.books.slice(0, 2);
+          setBooks(twoBooks);
+        } else {
+          setIsBookEmpty(true);
+        }
+
+        setIsLoadingProfile(false);
       }
     }
 
-    fetchProfile();
+    fetchProfile().catch((err) => {
+      setError(err.message);
+      setIsLoadingProfile(false);
+    });
   }, []);
 
   const logOutHandler = () => {
@@ -54,11 +78,9 @@ const Profile = (props) => {
         {
           label: "Yes",
           onClick: async () => {
+            props.onHideProfile();
             localStorage.clear();
-            setTimeout(() => {
-              navigate("/login");
-              window.location.reload();
-            }, 500);
+            navigate("/login");
           },
         },
         {
@@ -155,6 +177,9 @@ const Profile = (props) => {
   const changePasswordHandler = () => {
     setIsPassChanged(true);
   };
+  const changeDetailsHandler = () => {
+    setIsPassChanged(false);
+  };
 
   const nameControlClasses = `${classes.control} ${
     formInputValidity.name ? "" : classes.invalid
@@ -177,84 +202,108 @@ const Profile = (props) => {
     </li>
   ));
 
-  return (
-    <Modal onClose={props.onHideProfile}>
-      {!isPassChanged && (
-        <form className={classes.form} onSubmit={submitHandler}>
-          {isLogging && <p>Editing Profile...</p>}
-          {!isLogging && !isSuccess && error && (
-            <p className={classes.error}>{error}</p>
+  const editDetails = (
+    <Fragment>
+      <form className={classes.form} onSubmit={submitHandler}>
+        {isLogging && <p>Editing Profile...</p>}
+        {!isLogging && !isSuccess && error && (
+          <p className={classes.error}>{error}</p>
+        )}
+        {!isLogging && isSuccess && (
+          <p className={classes.success}>Profile Edited Successfully...!</p>
+        )}
+        <div className={nameControlClasses}>
+          <label htmlFor="name">Your Name</label>
+          <input defaultValue={name} ref={nameRef} type="text" id="name" />
+          {!formInputValidity.name && (
+            <p className={classes.para}>Please enter your name.</p>
           )}
-          {!isLogging && isSuccess && (
-            <p className={classes.success}>Profile Edited Successfully...!</p>
+        </div>
+        <div className={emailControlClasses}>
+          <label htmlFor="email">Your Email</label>
+          <input defaultValue={email} ref={emailRef} type="text" id="email" />
+          {!formInputValidity.email && (
+            <p className={classes.para}>Please enter email.</p>
           )}
-          <div className={nameControlClasses}>
-            <label htmlFor="name">Your Name</label>
-            <input defaultValue={name} ref={nameRef} type="text" id="name" />
-            {!formInputValidity.name && (
-              <p className={classes.para}>Please enter your name.</p>
-            )}
-          </div>
-          <div className={emailControlClasses}>
-            <label htmlFor="email">Your Email</label>
-            <input defaultValue={email} ref={emailRef} type="text" id="email" />
-            {!formInputValidity.email && (
-              <p className={classes.para}>Please enter email.</p>
-            )}
-          </div>
+        </div>
 
-          <div className={classes.actions}>
-            <button className={classes.submit}>Edit</button>
-          </div>
-        </form>
-      )}
-      {isPassChanged && (
-        <form className={classes.form} onSubmit={submitPasswordHandler}>
-          {isLogging && <p>Changing Password...</p>}
-          {!isLogging && !isSuccess && error && (
-            <p className={classes.error}>{error}</p>
-          )}
-          {!isLogging && isSuccess && (
-            <p className={classes.success}>Password Changed Successfully...!</p>
-          )}
-
-          <div className={newPasswordControlClasses}>
-            <label htmlFor="newPassword">New Password</label>
-            <input ref={newPasswordRef} type="text" id="newPassword" />
-            {!formInputValidity.password && (
-              <p className={classes.para}>
-                Please enter password of atleast 5 characters long.
-              </p>
-            )}
-          </div>
-
-          <div className={classes.actions}>
-            <button className={classes.submit}>Change</button>
-          </div>
-        </form>
-      )}
+        <div className={classes.actions}>
+          <button className={classes.submit}>Edit</button>
+        </div>
+      </form>
       <br></br>
-
       <button
         className={classes.changePassword}
         onClick={changePasswordHandler}
       >
-        Click to change password
+        Change password
       </button>
+    </Fragment>
+  );
+
+  const changePassword = (
+    <Fragment>
+      <form className={classes.form} onSubmit={submitPasswordHandler}>
+        {isLogging && <p>Changing Password...</p>}
+        {!isLogging && !isSuccess && error && (
+          <p className={classes.error}>{error}</p>
+        )}
+        {!isLogging && isSuccess && (
+          <p className={classes.success}>Password Changed Successfully...!</p>
+        )}
+
+        <div className={newPasswordControlClasses}>
+          <label htmlFor="newPassword">New Password</label>
+          <input ref={newPasswordRef} type="text" id="newPassword" />
+          {!formInputValidity.password && (
+            <p className={classes.para}>
+              Please enter password of atleast 5 characters long.
+            </p>
+          )}
+        </div>
+
+        <div className={classes.actions}>
+          <button className={classes.submit}>Change</button>
+        </div>
+      </form>
+      <br></br>
+      <button className={classes.changePassword} onClick={changeDetailsHandler}>
+        Change details
+      </button>
+    </Fragment>
+  );
+
+  const profileData = (
+    <Fragment>
+      {!isPassChanged && editDetails}
+      {isPassChanged && changePassword}
 
       <div>
         <h3>Books:</h3>
-        <ul>{myBookList}</ul>
+        {!isBookEmpty && (
+          <Fragment>
+            <ul>{myBookList}</ul>
+            <div className={classes.actions}>
+              <Link
+                className={classes.viewAll}
+                to="/mybooks"
+                onClick={props.onHideProfile}
+              >
+                View All
+              </Link>
+            </div>
+          </Fragment>
+        )}
+
+        {isBookEmpty && (
+          <Fragment>
+            <p className={classes.error}>No Books Found</p>
+            {isModalShown && <AddMyBook onHideModal={hideModalHandler} />}
+            <ShowAddBookButton onShowModal={showModalHandler} />
+          </Fragment>
+        )}
       </div>
-      <div className={classes.actions}>
-        <Link
-          className={classes.viewAll}
-          to="/mybooks"
-          onClick={props.onHideProfile}
-        >
-          View All
-        </Link>
-      </div>
+
       <br></br>
       <div className={classes.actions}>
         <button className={classes.button} onClick={logOutHandler}>
@@ -264,6 +313,14 @@ const Profile = (props) => {
           Close
         </button>
       </div>
+    </Fragment>
+  );
+
+  return (
+    <Modal onClose={props.onHideProfile}>
+      {isLoadingProfile && <p>Loading Profile...</p>}
+      {error && <p className={classes.error}>{error}</p>}
+      {!isLoadingProfile && !error && profileData}
     </Modal>
   );
 };

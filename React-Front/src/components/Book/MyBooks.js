@@ -15,6 +15,7 @@ const MyBooks = () => {
   const [isModalShown, setIsModalShown] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState("");
   const [deleteError, setDeleteError] = useState("");
+  const [isBookEmpty, setIsBookEmpty] = useState(false);
 
   const showModalHandler = () => {
     setIsModalShown(true);
@@ -27,7 +28,11 @@ const MyBooks = () => {
   useEffect(() => {
     async function fetchMyBooks() {
       const myBooks = await getMyBooks();
-      setBooks(myBooks);
+      if (myBooks.length !== 0) {
+        setBooks(myBooks);
+      } else {
+        setIsBookEmpty(true);
+      }
       setIsLoading(false);
     }
 
@@ -99,19 +104,28 @@ const MyBooks = () => {
     </Fragment>
   ));
 
+  const booksData = (
+    <Fragment>
+      {error && (
+        <section className={classes.BooksError}>
+          <p>{error}</p>
+        </section>
+      )}
+      {deleteSuccess && <p className={classes.dltSuccess}>{deleteSuccess}</p>}
+      {deleteError && <p className={classes.dltError}>{deleteError}</p>}
+      <ul>{bookList}</ul>
+    </Fragment>
+  );
+
   return (
     <section className={classes.books}>
       <Card>
         {isModalShown && <AddMyBook onHideModal={hideModalHandler} />}
         <ShowAddBookButton onShowModal={showModalHandler} />
-        {error && (
-          <section className={classes.BooksError}>
-            <p>{error}</p>
-          </section>
+        {isBookEmpty && (
+          <p className={classes.BooksError}>No books found add one..</p>
         )}
-        {deleteSuccess && <p className={classes.dltSuccess}>{deleteSuccess}</p>}
-        {deleteError && <p className={classes.dltError}>{deleteError}</p>}
-        <ul>{bookList}</ul>
+        {!isBookEmpty && booksData}
       </Card>
     </section>
   );

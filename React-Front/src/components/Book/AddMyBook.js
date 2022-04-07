@@ -102,7 +102,7 @@ const AddMyBook = (props) => {
       </form>
 
       <div className={classes.actions}>
-        <button className={classes.button} onClick={props.onHideModal}>
+        <button className={classes.submit} onClick={props.onHideModal}>
           Close
         </button>
       </div>

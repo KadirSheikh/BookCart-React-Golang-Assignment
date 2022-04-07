@@ -17,26 +17,24 @@ const Header = (props) => {
     <Fragment>
       <header className={classes.header}>
         <div className={classes.logo}>Book Cart</div>
-        {isNull && (
-          <nav className={classes.nav}>
-            <ul>
+
+        <nav className={classes.nav}>
+          <ul>
+            {isNull && (
               <li>
                 <NavLink to="/login">Login</NavLink>
               </li>
-            </ul>
-          </nav>
-        )}
-
-        {!isNull && (
-          <nav className={classes.nav}>
-            <ul>
-              <li>
-                <NavLink to="/books">Books</NavLink>
-              </li>
-              <li onClick={props.onShowProfile}>My Profile</li>
-            </ul>
-          </nav>
-        )}
+            )}
+            {!isNull && (
+              <Fragment>
+                <li>
+                  <NavLink to="/books">Books</NavLink>
+                </li>
+                <li onClick={props.onShowProfile}>My Profile</li>
+              </Fragment>
+            )}
+          </ul>
+        </nav>
       </header>
       <div className={classes["main-image"]}>
         <img src={BookImg} alt="BookImg" />
