@@ -45,29 +45,27 @@ const Profile = (props) => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    async function fetchProfile() {
-      setIsLoadingProfile(true);
-      const resData = await autherProfile();
-      console.log(resData);
-      if (resData.status) {
-        setName(resData.data.name);
-        setEmail(resData.data.email);
+    autherProfile()
+      .then((resData) => {
+        console.log(resData);
+        if (resData.status) {
+          setName(resData.data.name);
+          setEmail(resData.data.email);
 
-        if (resData.data.books.length !== 0) {
-          const twoBooks = resData.data.books.slice(0, 2);
-          setBooks(twoBooks);
-        } else {
-          setIsBookEmpty(true);
+          if (resData.data.books.length !== 0) {
+            const twoBooks = resData.data.books.slice(0, 2);
+            setBooks(twoBooks);
+          } else {
+            setIsBookEmpty(true);
+          }
+
+          setIsLoadingProfile(false);
         }
-
+      })
+      .catch((err) => {
+        setError(err.message);
         setIsLoadingProfile(false);
-      }
-    }
-
-    fetchProfile().catch((err) => {
-      setError(err.message);
-      setIsLoadingProfile(false);
-    });
+      });
   }, []);
 
   const logOutHandler = () => {
@@ -93,7 +91,7 @@ const Profile = (props) => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-
+    setIsLogging(true);
     const enteredName = nameRef.current.value;
     const enteredEmail = emailRef.current.value;
 
@@ -116,27 +114,31 @@ const Profile = (props) => {
       email: enteredEmail,
     });
 
-    const resData = await editProfile({
+    editProfile({
       name: enteredName,
       email: enteredEmail,
-    });
-
-    if (resData.status) {
-      setIsSuccess(true);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    } else {
-      setIsLogging(false);
-      setError(resData.message);
-    }
-
-    setIsLogging(false);
+    })
+      .then((resData) => {
+        if (resData.status) {
+          setIsLogging(false);
+          setIsSuccess(true);
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        } else {
+          setIsLogging(false);
+          setError(resData.message);
+        }
+      })
+      .catch((err) => {
+        setError(err.message);
+        setIsLogging(false);
+      });
   };
 
   const submitPasswordHandler = async (event) => {
     event.preventDefault();
-
+    setIsLogging(true);
     const enteredPass = newPasswordRef.current.value;
 
     const enteredPassIsValid = isFiveChar(enteredPass);
@@ -155,23 +157,27 @@ const Profile = (props) => {
       password: enteredPass,
     });
 
-    const resData = await editProfile({
+    editProfile({
       name: name,
       email: email,
       password: enteredPass,
-    });
-
-    if (resData.status) {
-      setIsSuccess(true);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    } else {
-      setIsLogging(false);
-      setError(resData.message);
-    }
-
-    setIsLogging(false);
+    })
+      .then((resData) => {
+        if (resData.status) {
+          setIsLogging(false);
+          setIsSuccess(true);
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        } else {
+          setIsLogging(false);
+          setError(resData.message);
+        }
+      })
+      .catch((err) => {
+        setIsLogging(false);
+        setError(err.message);
+      });
   };
 
   const changePasswordHandler = () => {
@@ -214,14 +220,26 @@ const Profile = (props) => {
         )}
         <div className={nameControlClasses}>
           <label htmlFor="name">Your Name</label>
-          <input defaultValue={name} ref={nameRef} type="text" id="name" />
+          <input
+            defaultValue={name}
+            ref={nameRef}
+            type="text"
+            id="name"
+            placeholder="Enter name"
+          />
           {!formInputValidity.name && (
             <p className={classes.para}>Please enter your name.</p>
           )}
         </div>
         <div className={emailControlClasses}>
           <label htmlFor="email">Your Email</label>
-          <input defaultValue={email} ref={emailRef} type="text" id="email" />
+          <input
+            defaultValue={email}
+            ref={emailRef}
+            type="text"
+            id="email"
+            placeholder="Enter email"
+          />
           {!formInputValidity.email && (
             <p className={classes.para}>Please enter email.</p>
           )}
@@ -254,7 +272,12 @@ const Profile = (props) => {
 
         <div className={newPasswordControlClasses}>
           <label htmlFor="newPassword">New Password</label>
-          <input ref={newPasswordRef} type="text" id="newPassword" />
+          <input
+            ref={newPasswordRef}
+            type="text"
+            id="newPassword"
+            placeholder="******"
+          />
           {!formInputValidity.password && (
             <p className={classes.para}>
               Please enter password of atleast 5 characters long.

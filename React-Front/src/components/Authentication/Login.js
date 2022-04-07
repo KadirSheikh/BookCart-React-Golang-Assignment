@@ -87,14 +87,24 @@ const Login = () => {
       )}
       <div className={emailControlClasses}>
         <label htmlFor="email">Your Email</label>
-        <input ref={emailRef} type="text" id="email" />
+        <input
+          ref={emailRef}
+          type="text"
+          id="email"
+          placeholder="Enter email"
+        />
         {!formInputValidity.email && (
           <p className={classes.para}>Please enter email.</p>
         )}
       </div>
       <div className={passwordControlClasses}>
         <label htmlFor="password">Password</label>
-        <input ref={passwordRef} type="password" id="passwordCode" />
+        <input
+          ref={passwordRef}
+          type="password"
+          id="password"
+          placeholder="Enter password"
+        />
         {!formInputValidity.password && (
           <p className={classes.para}>
             Please enter password 5 characters long.

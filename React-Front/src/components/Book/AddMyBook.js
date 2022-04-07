@@ -21,7 +21,6 @@ const AddMyBook = (props) => {
   const submitHandler = async (event) => {
     event.preventDefault();
     setIsAdding(true);
-
     const enteredTitle = titleRef.current.value;
     const enteredDescription = descriptionRef.current.value;
 
@@ -46,22 +45,26 @@ const AddMyBook = (props) => {
       description: enteredDescription,
     });
 
-    const resData = await addNewBook({
+    addNewBook({
       title: enteredTitle,
       description: enteredDescription,
-    });
-
-    if (resData.status) {
-      setIsSuccess(true);
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    } else {
-      setIsAdding(false);
-      setError(resData.message);
-    }
-
-    setIsAdding(false);
+    })
+      .then((resData) => {
+        if (resData.status) {
+          setIsSuccess(true);
+          setIsAdding(false);
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        } else {
+          setError(resData.message);
+          setIsAdding(false);
+        }
+      })
+      .catch((err) => {
+        setError(err.message);
+        setIsAdding(false);
+      });
   };
 
   const titleControlClasses = `${classes.control} ${
@@ -83,14 +86,24 @@ const AddMyBook = (props) => {
         )}
         <div className={titleControlClasses}>
           <label htmlFor="title">Title</label>
-          <input ref={titleRef} type="text" id="title" />
+          <input
+            ref={titleRef}
+            type="text"
+            id="title"
+            placeholder="Book title"
+          />
           {!formInputValidity.title && (
             <p className={classes.para}>Please enter book title.</p>
           )}
         </div>
         <div className={descriptionControlClasses}>
           <label htmlFor="description">Description</label>
-          <textarea ref={descriptionRef} type="text" id="descriptionCode" />
+          <textarea
+            ref={descriptionRef}
+            type="text"
+            id="description"
+            placeholder="Book description"
+          />
           {!formInputValidity.description && (
             <p className={classes.para}>Please enter book description.</p>
           )}

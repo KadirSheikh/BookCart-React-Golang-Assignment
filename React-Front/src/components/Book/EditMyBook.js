@@ -109,7 +109,13 @@ const EditMyBook = (props) => {
         )}
         <div className={titleControlClasses}>
           <label htmlFor="title">Title</label>
-          <input defaultValue={title} ref={titleRef} type="text" id="title" />
+          <input
+            defaultValue={title}
+            ref={titleRef}
+            type="text"
+            id="title"
+            placeholder="Book title"
+          />
           {!formInputValidity.title && (
             <p className={classes.para}>Please enter book title.</p>
           )}
@@ -121,6 +127,7 @@ const EditMyBook = (props) => {
             type="text"
             id="descriptionCode"
             defaultValue={description}
+            placeholder="Book description"
           />
           {!formInputValidity.description && (
             <p className={classes.para}>Please enter book description.</p>

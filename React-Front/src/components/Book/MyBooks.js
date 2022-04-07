@@ -51,18 +51,22 @@ const MyBooks = () => {
           label: "Yes",
           onClick: async () => {
             window.scrollTo(0, 0);
-            const res = await deleteBook(event.target.id);
+            deleteBook(event.target.id)
+              .then((res) => {
+                console.log(res);
+                if (res.status) {
+                  setDeleteSuccess(res.message);
+                } else {
+                  setDeleteError(res.message);
+                }
 
-            console.log(res);
-            if (res.status) {
-              setDeleteSuccess(res.message);
-            } else {
-              setDeleteError(res.message);
-            }
-
-            setTimeout(() => {
-              window.location.reload();
-            }, 500);
+                setTimeout(() => {
+                  window.location.reload();
+                }, 500);
+              })
+              .catch((err) => {
+                setDeleteError(err.message);
+              });
           },
         },
         {

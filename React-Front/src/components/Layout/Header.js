@@ -2,9 +2,19 @@ import { NavLink } from "react-router-dom";
 import { Fragment } from "react";
 import BookImg from "../../assets/books.jpg";
 import classes from "./Header.module.css";
+import { useLocation } from "react-router-dom";
 
 const Header = (props) => {
+  const location = useLocation();
   const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  let isLogin;
+
+  if (location.pathname === "/login" || location.pathname === "/") {
+    isLogin = true;
+  } else {
+    isLogin = false;
+  }
 
   let isNull;
   if (isLoggedIn === null) {
@@ -20,9 +30,14 @@ const Header = (props) => {
 
         <nav className={classes.nav}>
           <ul>
-            {isNull && (
+            {isNull && isLogin && (
               <li>
                 <NavLink to="/login">Login</NavLink>
+              </li>
+            )}
+            {isNull && !isLogin && (
+              <li>
+                <NavLink to="/register">Register</NavLink>
               </li>
             )}
             {!isNull && (

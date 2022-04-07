@@ -95,21 +95,31 @@ const Registration = () => {
       )}
       <div className={nameControlClasses}>
         <label htmlFor="name">Your Name</label>
-        <input ref={nameRef} type="text" id="name" />
+        <input ref={nameRef} type="text" id="name" placeholder="Enter name" />
         {!formInputValidity.name && (
           <p className={classes.para}>Please enter your name.</p>
         )}
       </div>
       <div className={emailControlClasses}>
         <label htmlFor="email">Your Email</label>
-        <input ref={emailRef} type="text" id="email" />
+        <input
+          ref={emailRef}
+          type="text"
+          id="email"
+          placeholder="Enter email"
+        />
         {!formInputValidity.email && (
           <p className={classes.para}>Please enter email.</p>
         )}
       </div>
       <div className={passwordControlClasses}>
         <label htmlFor="password">Password</label>
-        <input ref={passwordRef} type="password" id="password" />
+        <input
+          ref={passwordRef}
+          type="password"
+          id="password"
+          placeholder="Enter password"
+        />
         {!formInputValidity.password && (
           <p className={classes.para}>
             Please enter password 5 characters long.
