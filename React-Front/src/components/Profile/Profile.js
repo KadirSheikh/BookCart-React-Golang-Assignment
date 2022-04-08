@@ -12,8 +12,9 @@ const Profile = (props) => {
   const [formInputValidity, setFormInputValidity] = useState({
     name: true,
     email: true,
-    password: true,
   });
+  
+  const [passChangeValidity, setPassChangeValidity] = useState(true)
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [books, setBooks] = useState([]);
@@ -106,6 +107,7 @@ const Profile = (props) => {
     const formIsValid = enteredNameIsValid && enteredEmailIsValid;
 
     if (!formIsValid) {
+      setIsLogging(false);
       return;
     }
 
@@ -143,11 +145,10 @@ const Profile = (props) => {
 
     const enteredPassIsValid = isFiveChar(enteredPass);
 
-    setFormInputValidity({
-      password: enteredPassIsValid,
-    });
+    setPassChangeValidity(enteredPassIsValid);
 
     if (!enteredPassIsValid) {
+      setIsLogging(false);
       return;
     }
 
@@ -194,7 +195,7 @@ const Profile = (props) => {
     formInputValidity.email ? "" : classes.invalid
   }`;
   const newPasswordControlClasses = `${classes.control} ${
-    formInputValidity.password ? "" : classes.invalid
+    passChangeValidity ? "" : classes.invalid
   }`;
 
   const myBookList = books.map((book) => (
@@ -278,7 +279,7 @@ const Profile = (props) => {
             id="newPassword"
             placeholder="******"
           />
-          {!formInputValidity.password && (
+          {!passChangeValidity && (
             <p className={classes.para}>
               Please enter password of atleast 5 characters long.
             </p>

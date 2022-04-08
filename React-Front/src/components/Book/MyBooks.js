@@ -30,6 +30,7 @@ const MyBooks = () => {
       const myBooks = await getMyBooks();
       if (myBooks.length !== 0) {
         setBooks(myBooks);
+        setIsBookEmpty(false);
       } else {
         setIsBookEmpty(true);
       }

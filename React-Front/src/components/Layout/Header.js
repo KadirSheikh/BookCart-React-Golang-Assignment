@@ -30,12 +30,12 @@ const Header = (props) => {
 
         <nav className={classes.nav}>
           <ul>
-            {isNull && isLogin && (
+            {isNull && !isLogin && (
               <li>
                 <NavLink to="/login">Login</NavLink>
               </li>
             )}
-            {isNull && !isLogin && (
+            {isNull && isLogin && (
               <li>
                 <NavLink to="/register">Register</NavLink>
               </li>
