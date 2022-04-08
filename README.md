@@ -62,6 +62,45 @@ $ npm install
 $ npm start
 ```
 
+# Screenshots of project
+
+1. Author login page.
+
+![Screenshot (218)](https://user-images.githubusercontent.com/52908403/162371204-7be81d7d-0cc7-4554-ab3d-d41dbaae00fe.png)
+
+
+2. Author registration page.
+
+![Screenshot (219)](https://user-images.githubusercontent.com/52908403/162371389-6c25b26d-a093-4df0-98e0-ad144010ccf4.png)
+
+3. Home page enlisting all books by name, description and author
+
+![Screenshot (222)](https://user-images.githubusercontent.com/52908403/162371481-5d65e7d1-4d0e-4cbc-877e-f72dfca44082.png)
+
+4. Profile modal for editing author details i.e name and email
+
+![Screenshot (223)](https://user-images.githubusercontent.com/52908403/162371624-acd2573f-c407-4b39-8a58-97f0cfe233d2.png)
+
+5. Profile modal for changing password.
+
+![Screenshot (224)](https://user-images.githubusercontent.com/52908403/162371692-1d18eb19-8f76-4020-bd7d-54381cceb057.png)
+
+6. View my all books.
+
+![Screenshot (225)](https://user-images.githubusercontent.com/52908403/162371747-90e1e74a-75d1-4c15-a40c-ff458aec4c8e.png)
+
+7. Delete existing book. 
+
+![Screenshot (226)](https://user-images.githubusercontent.com/52908403/162371770-3fdc4b97-b558-4fd1-968a-88feb26fd4aa.png)
+
+
+8. Add a new book.
+
+![Screenshot (228)](https://user-images.githubusercontent.com/52908403/162371835-a4671a92-ad61-436c-9ae2-7abc069d79a4.png)
+
+9. Edit existing book.
+
+![Screenshot (227)](https://user-images.githubusercontent.com/52908403/162371898-d1514bfb-f966-4240-a3a0-6e1fd87365df.png)
 
 
 
