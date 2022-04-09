@@ -11,9 +11,10 @@ export async function getAllAvailableBooks() {
     },
   });
 
-  console.log(res);
+  // console.log(res);
 
   const books = res.data.data;
+  console.log(books);
 
   const loadedBooks = [];
 
@@ -22,7 +23,7 @@ export async function getAllAvailableBooks() {
       id: books[key].id,
       name: books[key].title,
       description: books[key].description,
-      auther: books[key].auther.name,
+      author: books[key].author.name,
     });
   }
 
@@ -31,8 +32,39 @@ export async function getAllAvailableBooks() {
   return loadedBooks;
 }
 
-export async function autherProfile() {
-  const response = await axios(`${ROOT_ROUTE}/auther/profile`, {
+export async function getAllAuthors() {
+  const res = await axios(`${ROOT_ROUTE}/author/`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+
+ 
+
+  const authors = res.data.data;
+  
+
+  const loadedAuthors = [];
+
+  for (const key in authors) {
+    loadedAuthors.push({
+      id: authors[key].id,
+      name: authors[key].name,
+      email: authors[key].email,
+
+    });
+  }
+
+  console.log(loadedAuthors);
+
+  return loadedAuthors;
+
+
+}
+
+export async function authorProfile() {
+  const response = await axios(`${ROOT_ROUTE}/author/profile`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("token"),
@@ -71,7 +103,7 @@ export async function deleteBook(bookID) {
 }
 
 export async function editProfile(authorData) {
-  const response = await axios(`${ROOT_ROUTE}/auther/profile`, {
+  const response = await axios(`${ROOT_ROUTE}/author/profile`, {
     method: "PUT",
     data: JSON.stringify(authorData),
     headers: {
@@ -86,10 +118,10 @@ export async function editProfile(authorData) {
 
 // REQUESTS USING FETCH
 
-export async function loginAuther(autherData) {
+export async function loginAuthor(authorData) {
   const response = await fetch(`${ROOT_ROUTE}/auth/login`, {
     method: "POST",
-    body: JSON.stringify(autherData),
+    body: JSON.stringify(authorData),
     headers: {
       "Content-Type": "application/json",
     },
@@ -104,10 +136,10 @@ export async function loginAuther(autherData) {
   return resData;
 }
 
-export async function registerAuther(autherData) {
+export async function registerAuthor(authorData) {
   const response = await fetch(`${ROOT_ROUTE}/auth/register`, {
     method: "POST",
-    body: JSON.stringify(autherData),
+    body: JSON.stringify(authorData),
     headers: {
       "Content-Type": "application/json",
     },
@@ -123,7 +155,7 @@ export async function registerAuther(autherData) {
 }
 
 export async function getMyBooks() {
-  const response = await fetch(`${ROOT_ROUTE}/auther/profile`, {
+  const response = await fetch(`${ROOT_ROUTE}/author/profile`, {
     headers: {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("token"),
@@ -138,7 +170,7 @@ export async function getMyBooks() {
       id: resData.data.books[key].id,
       name: resData.data.books[key].title,
       description: resData.data.books[key].description,
-      auther: resData.data.books[key].auther.name,
+      author: resData.data.books[key].author.name,
     });
   }
 

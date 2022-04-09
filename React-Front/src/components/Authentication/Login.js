@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./Login.module.css";
-import { loginAuther } from "../../lib/api";
+import { loginAuthor } from "../../lib/api";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ const Login = () => {
       password: enteredPassword,
     });
 
-    const resData = await loginAuther({
+    const resData = await loginAuthor({
       email: enteredEmail,
       password: enteredPassword,
     });

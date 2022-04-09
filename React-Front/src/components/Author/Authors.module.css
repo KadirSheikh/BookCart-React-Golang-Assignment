@@ -1,0 +1,36 @@
+.Authors {
+    max-width: 60rem;
+    width: 90%;
+    margin: 2rem auto;
+    animation: Authors-appear 1s ease-out forwards;
+  }
+  
+  .AuthorsLoading {
+    text-align: center;
+    color: white;
+  }
+  .AuthorsError {
+    text-align: center;
+    color: red;
+  }
+  
+  .Authors ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  
+  
+  @keyframes Authors-appear {
+    from {
+      opacity: 0;
+      transform: translateY(3rem);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

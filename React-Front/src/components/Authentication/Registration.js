@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./Registration.module.css";
-import { registerAuther } from "../../lib/api";
+import { registerAuthor } from "../../lib/api";
 
 const Registration = () => {
   const navigate = useNavigate();
@@ -53,7 +53,7 @@ const Registration = () => {
       password: enteredPassword,
     });
 
-    const resData = await registerAuther({
+    const resData = await registerAuthor({
       name: enteredName,
       email: enteredEmail,
       password: enteredPassword,

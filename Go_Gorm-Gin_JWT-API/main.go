@@ -57,7 +57,7 @@ func main() {
 	//author get profile, get all authors and update profile route group
 	authorRoutes := r.Group("api/author", middleware.AuthorizeJWT(jwtService))
 	{
-		authorRoutes.GET("/getAll", authorController.GetAll)
+		authorRoutes.GET("/", authorController.GetAll)
 		authorRoutes.GET("/profile", authorController.Profile)
 		authorRoutes.PUT("/profile", authorController.Update)
 	}

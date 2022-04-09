@@ -4,7 +4,7 @@ import classes from "./Profile.module.css";
 import Modal from "../UI/Modal";
 import AddMyBook from "../Book/AddMyBook";
 import ShowAddBookButton from "../Layout/ShowAddBookButton";
-import { autherProfile, editProfile } from "../../lib/api";
+import { authorProfile, editProfile } from "../../lib/api";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
@@ -46,7 +46,7 @@ const Profile = (props) => {
 
   const navigate = useNavigate();
   useEffect(() => {
-    autherProfile()
+    authorProfile()
       .then((resData) => {
         console.log(resData);
         if (resData.status) {

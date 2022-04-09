@@ -114,7 +114,7 @@
 			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
 			"data": [],
 			"dataMode": "raw",
-			"name": "http://localhost:8000/api/author/getAll",
+			"name": "http://localhost:8000/api/author",
 			"description": "get all authors",
 			"descriptionFormat": "html",
 			"time": 1649505007984,

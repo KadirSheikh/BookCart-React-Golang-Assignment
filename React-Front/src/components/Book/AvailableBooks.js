@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import classes from "./AvailableBooks.module.css";
 import Card from "../UI/Card";
 import BookItem from "./BookItem/BookItem";
-import { getAllAvailableBooks } from "../../lib/api";
+import { getAllAvailableBooks , getAllAuthors } from "../../lib/api";
 import { Fragment } from "react/cjs/react.production.min";
 
 const AvailableBooks = () => {
@@ -12,6 +12,7 @@ const AvailableBooks = () => {
   const [isBookEmpty, setIsBookEmpty] = useState(false);
 
   useEffect(() => {
+    getAllAuthors()
     getAllAvailableBooks()
       .then((data) => {
         console.log(data);
@@ -44,7 +45,7 @@ const AvailableBooks = () => {
       id={book.id}
       name={book.name}
       description={book.description}
-      auther={book.auther}
+      author={book.author}
     />
   ));
 

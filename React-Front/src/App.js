@@ -7,6 +7,7 @@ import Login from "./components/Authentication/Login";
 import Registration from "./components/Authentication/Registration";
 import MyBooks from "./components/Book/MyBooks";
 import EditMyBook from "./components/Book/EditMyBook";
+import Authors from "./components/Author/Authors"
 
 function App() {
   const [isProfileShown, setIsProfileShown] = useState(false);
@@ -39,6 +40,7 @@ function App() {
         )}
         <Route path="/" element={<Login />} />
         <Route path="/books" element={<Books />} />
+        <Route path="/authors" element={<Authors />} />
         <Route path="/mybooks" element={<MyBooks />} />
         <Route path="/mybooks/:bookid" element={<EditMyBook />} />
         <Route path="/login" element={<Login />} />
