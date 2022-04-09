@@ -11,6 +11,8 @@ export async function getAllAvailableBooks() {
     },
   });
 
+  console.log(res);
+
   const books = res.data.data;
 
   const loadedBooks = [];

@@ -1,0 +1,412 @@
+{
+	"id": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+	"name": "Book Cart RESTful APIs",
+	"description": "Rest api in golang using gin http framework, gorm ORM, JWT authentication",
+	"order": [
+		"14ac684d-c0a3-0f2e-d2f4-30306da9eef0",
+		"b72cd51d-2975-9cce-2f4c-b285047c260b",
+		"9200684b-3f9e-e3e8-d16d-cbcb4cdcd618",
+		"3429bd31-baf4-fb10-83a5-e461f9bb14ef",
+		"3423e393-b4cb-cc59-910e-648b24b58ade",
+		"5f60a952-cbfb-b2d6-c8da-3298e1ac2f30",
+		"5f0aefa9-17ce-0bb7-d7b7-0645c6aec9ca",
+		"56da3446-4f2c-66c9-1bd9-b7932a962281",
+		"68e97d41-a6b3-a6a8-f9e6-2a0ce91a4af1",
+		"85222fef-cd16-2966-9600-18a011d3b2dd",
+		"7e57f177-eacf-f2bb-9cf3-7d4549f10c84"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1649503918630,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "14ac684d-c0a3-0f2e-d2f4-30306da9eef0",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+			"data": null,
+			"dataMode": "params",
+			"name": "http://localhost:8000/",
+			"description": "root route\n",
+			"descriptionFormat": "html",
+			"time": 1649503934530,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {}
+		},
+		{
+			"id": "3423e393-b4cb-cc59-910e-648b24b58ade",
+			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/author/profile",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://localhost:8000/api/author/profile",
+			"description": "update loggedin author profile",
+			"descriptionFormat": "html",
+			"time": 1649505021692,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"name\":\"Kadir Sheikh\",\n\t\"email\":\"sheikhkadir@gmail.com\",\n\t\"password\":\"123456789\"\n}"
+		},
+		{
+			"id": "3429bd31-baf4-fb10-83a5-e461f9bb14ef",
+			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/author/getAll",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://localhost:8000/api/author/getAll",
+			"description": "get all authors",
+			"descriptionFormat": "html",
+			"time": 1649505007984,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"email\":\"sheikhkamil@gmail.com\",\n\t\"password\":\"123456789\"\n}"
+		},
+		{
+			"id": "56da3446-4f2c-66c9-1bd9-b7932a962281",
+			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/books",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://localhost:8000/api/books",
+			"description": "add new book",
+			"descriptionFormat": "html",
+			"time": 1649505477363,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"title\":\"Redirect\",\n\t\"description\":\"Whether you succeed in so many areas of life, including education, can often be attributed to your mindset – Redirect explains the incredible power of changing the stories you tell yourself, with a ferocious commitment to the scientific evidence.\"\n}"
+		},
+		{
+			"id": "5f0aefa9-17ce-0bb7-d7b7-0645c6aec9ca",
+			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/books",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://localhost:8000/api/books",
+			"description": "get all books",
+			"descriptionFormat": "html",
+			"time": 1649505118733,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"email\":\"sheikhkamil@gmail.com\",\n\t\"password\":\"123456789\"\n}"
+		},
+		{
+			"id": "5f60a952-cbfb-b2d6-c8da-3298e1ac2f30",
+			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/author/profile",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://localhost:8000/api/author/profile",
+			"description": "get loggedin author profile",
+			"descriptionFormat": "html",
+			"time": 1649505049991,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"email\":\"sheikhkamil@gmail.com\",\n\t\"password\":\"123456789\"\n}"
+		},
+		{
+			"id": "68e97d41-a6b3-a6a8-f9e6-2a0ce91a4af1",
+			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/books/1",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://localhost:8000/api/books/1",
+			"description": "get book by id",
+			"descriptionFormat": "html",
+			"time": 1649505557036,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"email\":\"sheikhkamil@gmail.com\",\n\t\"password\":\"123456789\"\n}"
+		},
+		{
+			"id": "7e57f177-eacf-f2bb-9cf3-7d4549f10c84",
+			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/books/1",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "DELETE",
+			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://localhost:8000/api/books/1",
+			"description": "delete book by id",
+			"descriptionFormat": "html",
+			"time": 1649505660088,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"title\":\"Outsmart Your Exams\",\n\t\"description\":\"Most students leave marks on the table on exam day through poor time management, avoidable mistakes, poor essay / question-answering technique, anxiety-induced performance dips, or simply not taking full advantage of memory’s almost magical powers of recall. This book explains how to avoid all that, and pick up every last mark you deserve on the test, turning exam performance from lottery to a science through the psychology of memory and performance.\"\n}"
+		},
+		{
+			"id": "85222fef-cd16-2966-9600-18a011d3b2dd",
+			"headers": "Content-Type: application/json\nAuthorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "Authorization",
+					"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRob3JfaWQiOiIxIiwiZXhwIjoxNjgxMDM5ODg5LCJpYXQiOjE2NDk1MDM4ODksImlzcyI6ImdvZ29ybWdpbmp3dCJ9.ZN3RjkBE_6y6EMvTEvKUYgf--cEGBHxLqPuIjWQ4lqM",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/books/1",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "PUT",
+			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://localhost:8000/api/books/1",
+			"description": "edit book by id",
+			"descriptionFormat": "html",
+			"time": 1649505639937,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"title\":\"Outsmart Your Exams\",\n\t\"description\":\"Most students leave marks on the table on exam day through poor time management, avoidable mistakes, poor essay / question-answering technique, anxiety-induced performance dips, or simply not taking full advantage of memory’s almost magical powers of recall. This book explains how to avoid all that, and pick up every last mark you deserve on the test, turning exam performance from lottery to a science through the psychology of memory and performance.\"\n}"
+		},
+		{
+			"id": "9200684b-3f9e-e3e8-d16d-cbcb4cdcd618",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/auth/login",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+			"data": [],
+			"dataMode": "raw",
+			"name": "http://localhost:8000/api/auth/login",
+			"description": "author login",
+			"descriptionFormat": "html",
+			"time": 1649504944561,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\t\"email\":\"sheikhkamil@gmail.com\",\n\t\"password\":\"123456789\"\n}"
+		},
+		{
+			"id": "b72cd51d-2975-9cce-2f4c-b285047c260b",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:8000/api/auth/register",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1649504794760,
+			"name": "http://localhost:8000/api/auth/register",
+			"description": "author registration",
+			"collectionId": "d0c2aa66-a3a3-20da-56aa-d8ecc898df0b",
+			"responses": [],
+			"rawModeData": "{\n\t\"name\":\"Kadir Rizwan Sheikh\",\n\t\"email\":\"sheikhkadir02@gmail.com\",\n\t\"password\":\"123456789\"\n}"
+		}
+	]
+}

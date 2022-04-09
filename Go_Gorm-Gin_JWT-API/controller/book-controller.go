@@ -67,13 +67,13 @@ func (c *bookController) Insert(context *gin.Context) {
 		context.JSON(http.StatusBadRequest, res)
 	} else {
 		authHeader := context.GetHeader("Authorization")
-		autherID := c.getAutherIDByToken(authHeader)
-		convertedAutherID, err := strconv.ParseUint(autherID, 10, 64)
+		authorID := c.getAuthorIDByToken(authHeader)
+		convertedAuthorID, err := strconv.ParseUint(authorID, 10, 64)
 		if err == nil {
-			bookCreateDTO.AutherID = convertedAutherID
+			bookCreateDTO.AuthorID = convertedAuthorID
 		}
 		result := c.bookService.Insert(bookCreateDTO)
-		response := helper.BuildSuccessResponse(true, "OK", result)
+		response := helper.BuildSuccessResponse(true, "Book added successfully!", result)
 		context.JSON(http.StatusCreated, response)
 	}
 }
@@ -99,16 +99,16 @@ func (c *bookController) Update(context *gin.Context) {
 		panic(errToken.Error())
 	}
 	claims := token.Claims.(jwt.MapClaims)
-	autherID := fmt.Sprintf("%v", claims["auther_id"])
+	authorID := fmt.Sprintf("%v", claims["author_id"])
 
-	if c.bookService.IsAllowedToEdit(autherID, bookUpdateDTO.ID) {
-		id, errID := strconv.ParseUint(autherID, 10, 64)
+	if c.bookService.IsAllowedToEdit(authorID, bookUpdateDTO.ID) {
+		id, errID := strconv.ParseUint(authorID, 10, 64)
 		if errID == nil {
-			bookUpdateDTO.AutherID = id
+			bookUpdateDTO.AuthorID = id
 
 		}
 		result := c.bookService.Update(bookUpdateDTO)
-		response := helper.BuildSuccessResponse(true, "OK", result)
+		response := helper.BuildSuccessResponse(true, "Book edited successfully!", result)
 		context.JSON(http.StatusOK, response)
 	} else {
 		response := helper.BuildErrorResponse("You don't have permission", "You are not the owner", helper.EmptyObj{})
@@ -130,10 +130,10 @@ func (c *bookController) Delete(context *gin.Context) {
 		panic(errToken.Error())
 	}
 	claims := token.Claims.(jwt.MapClaims)
-	autherID := fmt.Sprintf("%v", claims["auther_id"])
-	if c.bookService.IsAllowedToEdit(autherID, book.ID) {
+	authorID := fmt.Sprintf("%v", claims["author_id"])
+	if c.bookService.IsAllowedToEdit(authorID, book.ID) {
 		c.bookService.Delete(book)
-		res := helper.BuildSuccessResponse(true, "Deleted Successfully...!", helper.EmptyObj{})
+		res := helper.BuildSuccessResponse(true, "Book deleted successfully!", helper.EmptyObj{})
 		context.JSON(http.StatusOK, res)
 	} else {
 		response := helper.BuildErrorResponse("You don't have permission", "You are not the owner", helper.EmptyObj{})
@@ -141,12 +141,12 @@ func (c *bookController) Delete(context *gin.Context) {
 	}
 }
 
-func (c *bookController) getAutherIDByToken(token string) string {
+func (c *bookController) getAuthorIDByToken(token string) string {
 	aToken, err := c.jwtService.ValidateToken(token)
 	if err != nil {
 		panic(err.Error())
 	}
 	claims := aToken.Claims.(jwt.MapClaims)
-	id := fmt.Sprintf("%v", claims["auther_id"])
+	id := fmt.Sprintf("%v", claims["author_id"])
 	return id
 }

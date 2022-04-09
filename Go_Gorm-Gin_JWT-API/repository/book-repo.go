@@ -29,14 +29,14 @@ func NewBookRepository(dbConn *gorm.DB) BookRepository {
 //insert new Book
 func (db *bookConnection) InsertBook(b modal.Book) modal.Book {
 	db.connection.Save(&b)
-	db.connection.Preload("Auther").Find(&b)
+	db.connection.Preload("Author").Find(&b)
 	return b
 }
 
 //update existing Book
 func (db *bookConnection) UpdateBook(b modal.Book) modal.Book {
 	db.connection.Save(&b)
-	db.connection.Preload("Auther").Find(&b)
+	db.connection.Preload("Author").Find(&b)
 	return b
 }
 
@@ -48,13 +48,14 @@ func (db *bookConnection) DeleteBook(b modal.Book) {
 // find a book by its id
 func (db *bookConnection) FindBookByID(bookID uint64) modal.Book {
 	var book modal.Book
-	db.connection.Preload("Auther").Find(&book, bookID)
+	db.connection.Preload("Author").Find(&book, bookID)
+	//select * from book where id = bookID
 	return book
 }
 
 //get all books from book table
 func (db *bookConnection) AllBook() []modal.Book {
 	var books []modal.Book
-	db.connection.Preload("Auther").Find(&books)
+	db.connection.Preload("Author").Find(&books)
 	return books
 }

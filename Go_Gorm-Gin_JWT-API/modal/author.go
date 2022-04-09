@@ -1,7 +1,7 @@
 package modal
 
-//this is auther modal
-type Auther struct {
+//this is author modal
+type Author struct {
 	ID       uint64  `gorm:"primary_key:auto_increment" json:"id"`
 	Name     string  `gorm:"type:varchar(255)" json:"name"`
 	Email    string  `gorm:"uniqueIndex;type:varchar(255)" json:"email"`

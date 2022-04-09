@@ -9,12 +9,12 @@ import (
 )
 
 type JWTService interface {
-	GenerateToken(autherID string) string
+	GenerateToken(authorID string) string
 	ValidateToken(token string) (*jwt.Token, error)
 }
 
 type jwtCustomClaim struct {
-	AutherID string `json:"auther_id"`
+	AuthorID string `json:"author_id"`
 	jwt.StandardClaims
 }
 
@@ -38,11 +38,11 @@ func getSecretKey() string {
 	return secretKey
 }
 
-func (j *jwtService) GenerateToken(AutherID string) string {
+func (j *jwtService) GenerateToken(AuthorID string) string {
 
-	//passing auther id into jwt token
+	//passing author id into jwt token
 	claims := &jwtCustomClaim{
-		AutherID,
+		AuthorID,
 		jwt.StandardClaims{
 			ExpiresAt: time.Now().AddDate(1, 0, 0).Unix(),
 			Issuer:    j.issuer,

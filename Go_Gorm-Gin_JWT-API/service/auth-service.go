@@ -14,25 +14,25 @@ import (
 //AuthService is a contract about something that this service can do
 type AuthService interface {
 	VerifyCredential(email string, password string) interface{}
-	CreateAuther(auther dto.RegisterDTO) modal.Auther
-	FindByEmail(email string) modal.Auther
+	CreateAuthor(author dto.RegisterDTO) modal.Author
+	FindByEmail(email string) modal.Author
 	IsDuplicateEmail(email string) bool
 }
 
 type authService struct {
-	autherRepository repository.AutherRepository
+	authorRepository repository.AuthorRepository
 }
 
 //NewAuthService creates a new instance of AuthService.
-func NewAuthService(autherRep repository.AutherRepository) AuthService {
+func NewAuthService(authorRep repository.AuthorRepository) AuthService {
 	return &authService{
-		autherRepository: autherRep,
+		authorRepository: authorRep,
 	}
 }
 
 func (service *authService) VerifyCredential(email string, password string) interface{} {
-	res := service.autherRepository.VerifyCredential(email, password)
-	if v, ok := res.(modal.Auther); ok {
+	res := service.authorRepository.VerifyCredential(email, password)
+	if v, ok := res.(modal.Author); ok {
 		comparedPassword := comparePassword(v.Password, []byte(password))
 		if v.Email == email && comparedPassword {
 			return res
@@ -42,26 +42,26 @@ func (service *authService) VerifyCredential(email string, password string) inte
 	return false
 }
 
-func (service *authService) CreateAuther(auther dto.RegisterDTO) modal.Auther {
-	autherToCreate := modal.Auther{}
-	err := smapping.FillStruct(&autherToCreate, smapping.MapFields(&auther))
+func (service *authService) CreateAuthor(author dto.RegisterDTO) modal.Author {
+	authorToCreate := modal.Author{}
+	err := smapping.FillStruct(&authorToCreate, smapping.MapFields(&author))
 	if err != nil {
 		log.Fatalf("Failed map %v", err)
 	}
-	res := service.autherRepository.InsertAuther(autherToCreate)
+	res := service.authorRepository.InsertAuthor(authorToCreate)
 	return res
 }
 
-func (service *authService) FindByEmail(email string) modal.Auther {
-	return service.autherRepository.FindByEmail(email)
+func (service *authService) FindByEmail(email string) modal.Author {
+	return service.authorRepository.FindByEmail(email)
 }
 
 func (service *authService) IsDuplicateEmail(email string) bool {
-	res := service.autherRepository.IsDuplicateEmail(email)
+	res := service.authorRepository.IsDuplicateEmail(email)
 	return !(res.Error == nil)
 }
 
-// compare plain password provided by auther with hashed password from db
+// compare plain password provided by author with hashed password from db
 func comparePassword(hashedPwd string, plainPassword []byte) bool {
 	byteHash := []byte(hashedPwd)
 	err := bcrypt.CompareHashAndPassword(byteHash, plainPassword)

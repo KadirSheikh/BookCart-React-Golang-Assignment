@@ -18,15 +18,15 @@ var (
 	db         *gorm.DB           = config.SetupDBConnection()
 	jwtService service.JWTService = service.NewJWTService()
 
-	autherRepository repository.AutherRepository = repository.NewAutherRepository(db)
-	autherService    service.AutherService       = service.NewAutherService(autherRepository)
-	autherController controller.AutherController = controller.NewAutherController(autherService, jwtService)
+	authorRepository repository.AuthorRepository = repository.NewAuthorRepository(db)
+	authorService    service.AuthorService       = service.NewAuthorService(authorRepository)
+	authorController controller.AuthorController = controller.NewAuthorController(authorService, jwtService)
 
 	bookRepository repository.BookRepository = repository.NewBookRepository(db)
 	bookService    service.BookService       = service.NewBookService(bookRepository)
 	bookController controller.BookController = controller.NewBookController(bookService, jwtService)
 
-	authService    service.AuthService       = service.NewAuthService(autherRepository)
+	authService    service.AuthService       = service.NewAuthService(authorRepository)
 	authController controller.AuthController = controller.NewAuthController(authService, jwtService)
 )
 
@@ -34,35 +34,35 @@ func main() {
 
 	//closing db connection
 	defer config.CloseDBConnection(db)
-	// CORSMiddleware()
-	//root route
+
 	r := gin.Default()
+
+	// allowing cors and headers
 	r.Use(middleware.CORS)
 
+	//root route
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(200, gin.H{
 			"data": "Root route...!",
 		})
 	})
 
-	// auther login register route group
+	// author login and register route group
 	authRoutes := r.Group("api/auth")
-	// authRoutes := r.Group("api/auth", middleware.AuthorizeJWT(jwtService))
 	{
 		authRoutes.POST("/login", authController.Login)
 		authRoutes.POST("/register", authController.Register)
 	}
 
-	//auther get profile and update profile route group
-	autherRoutes := r.Group("api/auther", middleware.AuthorizeJWT(jwtService))
+	//author get profile, get all authors and update profile route group
+	authorRoutes := r.Group("api/author", middleware.AuthorizeJWT(jwtService))
 	{
-		autherRoutes.GET("/getAll", autherController.GetAll)
-		autherRoutes.GET("/profile", autherController.Profile)
-		autherRoutes.PUT("/profile", autherController.Update)
+		authorRoutes.GET("/getAll", authorController.GetAll)
+		authorRoutes.GET("/profile", authorController.Profile)
+		authorRoutes.PUT("/profile", authorController.Update)
 	}
 
 	//book CRUD operation route group
-	// bookRoutes := r.Group("api/books", middleware.AuthorizeJWT(jwtService))
 	bookRoutes := r.Group("api/books", middleware.AuthorizeJWT(jwtService))
 	{
 		bookRoutes.GET("/", bookController.All)
@@ -78,6 +78,5 @@ func main() {
 	}
 
 	PORT := os.Getenv("PORT") //running on port 8000
-
 	r.Run(PORT)
 }

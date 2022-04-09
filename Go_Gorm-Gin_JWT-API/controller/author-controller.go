@@ -14,28 +14,28 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type AutherController interface {
+type AuthorController interface {
 	Update(context *gin.Context)
 	GetAll(context *gin.Context)
 	Profile(context *gin.Context)
 }
 
-type autherController struct {
-	autherService service.AutherService
+type authorController struct {
+	authorService service.AuthorService
 	jwtService    service.JWTService
 }
 
-//NewAutherController is creating anew instance of AutherControlller
-func NewAutherController(autherService service.AutherService, jwtService service.JWTService) AutherController {
-	return &autherController{
-		autherService: autherService,
+//NewAuthorController is creating a new instance of AuthorControlller
+func NewAuthorController(authorService service.AuthorService, jwtService service.JWTService) AuthorController {
+	return &authorController{
+		authorService: authorService,
 		jwtService:    jwtService,
 	}
 }
 
-func (c *autherController) Update(context *gin.Context) {
-	var autherUpdateDTO dto.AutherUpdateDTO
-	errDTO := context.ShouldBind(&autherUpdateDTO)
+func (c *authorController) Update(context *gin.Context) {
+	var authorUpdateDTO dto.AuthorUpdateDTO
+	errDTO := context.ShouldBind(&authorUpdateDTO)
 	if errDTO != nil {
 		res := helper.BuildErrorResponse("Failed to process request", errDTO.Error(), helper.EmptyObj{})
 		context.AbortWithStatusJSON(http.StatusBadRequest, res)
@@ -48,32 +48,32 @@ func (c *autherController) Update(context *gin.Context) {
 		panic(errToken.Error())
 	}
 	claims := token.Claims.(jwt.MapClaims)
-	id, err := strconv.ParseUint(fmt.Sprintf("%v", claims["auther_id"]), 10, 64)
+	id, err := strconv.ParseUint(fmt.Sprintf("%v", claims["author_id"]), 10, 64)
 	if err != nil {
 		panic(err.Error())
 	}
-	autherUpdateDTO.ID = id
-	u := c.autherService.Update(autherUpdateDTO)
-	res := helper.BuildSuccessResponse(true, "OK!", u)
+	authorUpdateDTO.ID = id
+	u := c.authorService.Update(authorUpdateDTO)
+	res := helper.BuildSuccessResponse(true, "Profile update successfully!", u)
 	context.JSON(http.StatusOK, res)
 }
 
-func (c *autherController) GetAll(context *gin.Context) {
-	var authers []modal.Auther = c.autherService.All()
-	res := helper.BuildSuccessResponse(true, "OK", authers)
+func (c *authorController) GetAll(context *gin.Context) {
+	var authors []modal.Author = c.authorService.All()
+	res := helper.BuildSuccessResponse(true, "OK", authors)
 	context.JSON(http.StatusOK, res)
 }
 
-func (c *autherController) Profile(context *gin.Context) {
+func (c *authorController) Profile(context *gin.Context) {
 	authHeader := context.GetHeader("Authorization")
 	token, err := c.jwtService.ValidateToken(authHeader)
 	if err != nil {
 		panic(err.Error())
 	}
 	claims := token.Claims.(jwt.MapClaims)
-	id := fmt.Sprintf("%v", claims["auther_id"])
-	auther := c.autherService.Profile(id)
-	res := helper.BuildSuccessResponse(true, "OK", auther)
+	id := fmt.Sprintf("%v", claims["author_id"])
+	author := c.authorService.Profile(id)
+	res := helper.BuildSuccessResponse(true, "OK", author)
 	context.JSON(http.StatusOK, res)
 
 }

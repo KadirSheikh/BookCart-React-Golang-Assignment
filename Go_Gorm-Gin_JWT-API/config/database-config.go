@@ -35,7 +35,7 @@ func SetupDBConnection() *gorm.DB {
 	log.Println("Successfully connected to database...!!!")
 
 	//migrating defined modals to DB table
-	db.AutoMigrate(&modal.Book{}, &modal.Auther{})
+	db.AutoMigrate(&modal.Book{}, &modal.Author{})
 	return db
 
 }

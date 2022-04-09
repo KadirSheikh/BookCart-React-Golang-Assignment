@@ -17,7 +17,7 @@ type BookService interface {
 	Delete(b modal.Book)
 	All() []modal.Book
 	FindByID(bookID uint64) modal.Book
-	IsAllowedToEdit(autherID string, bookID uint64) bool
+	IsAllowedToEdit(authorID string, bookID uint64) bool
 }
 
 type bookService struct {
@@ -63,8 +63,8 @@ func (service *bookService) FindByID(bookID uint64) modal.Book {
 	return service.bookRepository.FindBookByID(bookID)
 }
 
-func (service *bookService) IsAllowedToEdit(autherID string, bookID uint64) bool {
+func (service *bookService) IsAllowedToEdit(authorID string, bookID uint64) bool {
 	b := service.bookRepository.FindBookByID(bookID)
-	id := fmt.Sprintf("%v", b.AutherID)
-	return autherID == id
+	id := fmt.Sprintf("%v", b.AuthorID)
+	return authorID == id
 }

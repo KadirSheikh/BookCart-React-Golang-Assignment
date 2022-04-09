@@ -1,7 +1,7 @@
 package dto
 
-//AutherUpdateDTO is used by client when PUT update profile
-type AutherUpdateDTO struct {
+//AuthorUpdateDTO is used by client when PUT update profile
+type AuthorUpdateDTO struct {
 	ID       uint64 `json:"id" form:"id"`
 	Name     string `json:"name" form:"name" binding:"required"`
 	Email    string `json:"email" form:"email" binding:"required,email"`

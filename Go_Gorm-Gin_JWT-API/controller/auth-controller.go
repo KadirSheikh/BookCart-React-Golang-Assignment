@@ -40,10 +40,10 @@ func (c *authController) Login(ctx *gin.Context) {
 		return
 	}
 	authResult := c.authService.VerifyCredential(loginDTO.Email, loginDTO.Password)
-	if v, ok := authResult.(modal.Auther); ok {
+	if v, ok := authResult.(modal.Author); ok {
 		generatedToken := c.jwtService.GenerateToken(strconv.FormatUint(v.ID, 10))
 		v.Token = generatedToken
-		response := helper.BuildSuccessResponse(true, "OK!", v)
+		response := helper.BuildSuccessResponse(true, "Login Successful!", v)
 		ctx.JSON(http.StatusOK, response)
 		return
 	}
@@ -64,10 +64,10 @@ func (c *authController) Register(ctx *gin.Context) {
 		response := helper.BuildErrorResponse("This email already exists.", "Failed to process request", helper.EmptyObj{})
 		ctx.JSON(http.StatusConflict, response)
 	} else {
-		createdAuther := c.authService.CreateAuther(registerDTO)
-		token := c.jwtService.GenerateToken(strconv.FormatUint(createdAuther.ID, 10))
-		createdAuther.Token = token
-		response := helper.BuildSuccessResponse(true, "OK!", createdAuther)
+		createdAuthor := c.authService.CreateAuthor(registerDTO)
+		token := c.jwtService.GenerateToken(strconv.FormatUint(createdAuthor.ID, 10))
+		createdAuthor.Token = token
+		response := helper.BuildSuccessResponse(true, "Registration Successful!", createdAuthor)
 		ctx.JSON(http.StatusCreated, response)
 	}
 }
