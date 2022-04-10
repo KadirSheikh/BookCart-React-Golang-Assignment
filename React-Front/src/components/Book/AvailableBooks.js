@@ -7,6 +7,7 @@ import { Fragment } from "react/cjs/react.production.min";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 
+
 const sortBooks = (books, ascending) => {
   return books.sort((bookA, bookB) => {
     if (ascending) {
@@ -28,6 +29,7 @@ const AvailableBooks = () => {
   const [searchValue, setSearchValue] = useState("");
 
 
+
   useEffect(() => {
 
     getAllAvailableBooks()
@@ -47,6 +49,8 @@ const AvailableBooks = () => {
         setError(err.message);
       });
   }, []);
+
+
 
   const isSortingAscending = searchParams.get("sort") === "asc";
   const sortedBooks = sortBooks(books, isSortingAscending);
@@ -80,22 +84,23 @@ const AvailableBooks = () => {
       </section>
     )}
     <ul>{bookList}</ul>
+
   </Fragment>
 
   const searchingNSorting = <div className={classes.sorting}>
-  <button onClick={changeSortingHandler}>
-    Sort {isSortingAscending ? "Descending" : "Ascending"}
-  </button>
+    <button onClick={changeSortingHandler}>
+      Sort {isSortingAscending ? "Descending" : "Ascending"}
+    </button>
 
-  <input
-  type="text"
-  name="search"
-  value={searchValue}
-  className={classes.searchBook}
-  placeholder="Search Book..."
-  onChange={e => setSearchValue(e.target.value)}
-/>
-</div>
+    <input
+      type="text"
+      name="search"
+      value={searchValue}
+      className={classes.searchBook}
+      placeholder="Search Book..."
+      onChange={e => setSearchValue(e.target.value)}
+    />
+  </div>
 
   return (
     <section className={classes.books}>
@@ -105,7 +110,9 @@ const AvailableBooks = () => {
           <p className={classes.BooksError}>No books found.</p>
         )}
         {!isBookEmpty && booksData}
+
       </Card>
+
     </section>
   );
 };
