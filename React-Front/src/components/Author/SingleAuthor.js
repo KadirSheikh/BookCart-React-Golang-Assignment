@@ -1,13 +1,55 @@
 import classes from "./SingleAuthor.module.css";
+import useCollapse from 'react-collapsed';
 
 const SingleAuthor = (props) => {
+
+  let isTotalBooksZero = false
+  if (props.totalBooks === 0) {
+    isTotalBooksZero = true
+
+  }
+
+
+  const { getCollapseProps, getToggleProps, isExpanded } = useCollapse();
+
   return (
-    <li className={classes.Author}>
-      <div>
-        <div className={classes.name}>{props.name}</div>
-        <div className={classes.email}>{props.email}</div>
+
+    <div className={classes.collapsible}>
+      <div className={classes.header} >
+
+        <div className={classes.container}>
+          <div>
+            <p className={classes.name}>{props.name}</p>
+            <p className={classes.email}>{props.email}</p>
+          </div>
+
+          <div>
+            <h4>Total books : {props.totalBooks}</h4>
+            <p {...getToggleProps()} className={classes.showBooks}> {!isExpanded ? 'Show Books' : 'Hide Books'}</p>
+          </div>
+        </div>
+
+
       </div>
-    </li>
+      <div {...getCollapseProps()}>
+        <div className={classes.content}>
+          {
+            props.books.map((book) => (
+              <div key={book.id}>
+                <p className={classes.bname}>{book.title}</p>
+                <p className={classes.email}>{book.description}</p>
+              </div>
+            ))
+            
+          }
+          {isTotalBooksZero && 
+          <p>No books added yet.</p>
+          }
+        </div>
+      </div>
+    </div>
+
+
   );
 };
 

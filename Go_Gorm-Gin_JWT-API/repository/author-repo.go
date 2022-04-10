@@ -17,6 +17,7 @@ type AuthorRepository interface {
 	IsDuplicateEmail(email string) (tx *gorm.DB)
 	FindByEmail(email string) modal.Author
 	ProfileAuthor(authorID string) modal.Author
+	GetAuthor(authorID uint64) modal.Author
 	AllAuthors() []modal.Author
 }
 
@@ -82,6 +83,12 @@ func (db *authorConnection) ProfileAuthor(authorID string) modal.Author {
 	return author
 }
 
+func (db *authorConnection) GetAuthor(authorID uint64) modal.Author {
+	var author modal.Author
+	db.connection.Preload("Books.Author").Find(&author, authorID)
+	return author
+}
+
 // password hashing
 func hashAndSalt(pwd []byte) string {
 	hash, err := bcrypt.GenerateFromPassword(pwd, bcrypt.MinCost)
@@ -94,6 +101,6 @@ func hashAndSalt(pwd []byte) string {
 
 func (db *authorConnection) AllAuthors() []modal.Author {
 	var authors []modal.Author
-	db.connection.Preload("Author").Find(&authors)
+	db.connection.Preload("Books.Author").Find(&authors)
 	return authors
 }

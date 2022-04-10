@@ -33,3 +33,32 @@
     transform: translateY(0);
   }
 }
+
+.sorting {
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #ad5502;
+  margin-bottom: 2rem;
+}
+
+.sorting button {
+  font: inherit;
+  color: #ad5502;
+  border: 1px solid #ad5502;
+  background-color: transparent;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  cursor: pointer;
+}
+
+.sorting button:hover {
+  background-color: #fcebeb;
+}
+
+.searchBook{
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 20rem;
+  height: 2rem;
+  float: right;
+  max-width: 100%;
+}

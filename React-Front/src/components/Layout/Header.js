@@ -45,6 +45,9 @@ const Header = (props) => {
                 <li>
                   <NavLink to="/books">Books</NavLink>
                 </li>
+                <li>
+                  <NavLink to="/authors">Authors</NavLink>
+                </li>
                 <li onClick={props.onShowProfile}>My Profile</li>
               </Fragment>
             )}

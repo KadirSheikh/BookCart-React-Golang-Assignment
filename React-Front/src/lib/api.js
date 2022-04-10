@@ -40,10 +40,8 @@ export async function getAllAuthors() {
     },
   });
 
- 
-
   const authors = res.data.data;
-  
+ 
 
   const loadedAuthors = [];
 
@@ -52,14 +50,29 @@ export async function getAllAuthors() {
       id: authors[key].id,
       name: authors[key].name,
       email: authors[key].email,
+      books: authors[key].books,
+      totalBooks: authors[key].books.length
 
     });
   }
 
-  console.log(loadedAuthors);
+ 
 
   return loadedAuthors;
 
+
+}
+
+export async function getAuthorBooks(authorId) {
+  const res = await axios(`${ROOT_ROUTE}/author/${authorId}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  });
+
+  const authors = res.data.data;
+  console.log(authors);
 
 }
 

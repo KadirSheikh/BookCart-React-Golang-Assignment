@@ -18,6 +18,7 @@ type AuthorController interface {
 	Update(context *gin.Context)
 	GetAll(context *gin.Context)
 	Profile(context *gin.Context)
+	Get(context *gin.Context)
 }
 
 type authorController struct {
@@ -73,6 +74,19 @@ func (c *authorController) Profile(context *gin.Context) {
 	claims := token.Claims.(jwt.MapClaims)
 	id := fmt.Sprintf("%v", claims["author_id"])
 	author := c.authorService.Profile(id)
+	res := helper.BuildSuccessResponse(true, "OK", author)
+	context.JSON(http.StatusOK, res)
+
+}
+
+func (c *authorController) Get(context *gin.Context) {
+	id, err := strconv.ParseUint(context.Param("id"), 0, 0)
+	if err != nil {
+		res := helper.BuildErrorResponse("No param id was found", err.Error(), helper.EmptyObj{})
+		context.AbortWithStatusJSON(http.StatusBadRequest, res)
+		return
+	}
+	author := c.authorService.GetById(id)
 	res := helper.BuildSuccessResponse(true, "OK", author)
 	context.JSON(http.StatusOK, res)
 

@@ -6,9 +6,24 @@ import AddMyBook from "../Book/AddMyBook";
 import ShowAddBookButton from "../Layout/ShowAddBookButton";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+
+
+const sortBooks = (books, ascending) => {
+  return books.sort((bookA, bookB) => {
+    if (ascending) {
+      return bookA.id > bookB.id ? 1 : -1;
+    } else {
+      return bookA.id < bookB.id ? 1 : -1;
+    }
+  });
+};
+
 
 const MyBooks = () => {
+  const [searchParams] = useSearchParams();
+  let navigate = useNavigate();
+  const [searchValue, setSearchValue] = useState("");
   const [books, setBooks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState();
@@ -42,6 +57,13 @@ const MyBooks = () => {
       setError(err.message);
     });
   }, []);
+
+  const isSortingAscending = searchParams.get("sort") === "asc";
+  const sortedBooks = sortBooks(books, isSortingAscending);
+
+  const changeSortingHandler = () => {
+    navigate("/mybooks?sort=" + (isSortingAscending ? "desc" : "asc"));
+  };
 
   const deleteBookById = (event) => {
     confirmAlert({
@@ -86,7 +108,7 @@ const MyBooks = () => {
     );
   }
 
-  const bookList = books.map((book) => (
+  const bookList = sortedBooks.filter(book => book.name.match(new RegExp(searchValue, "i"))).map((book) => (
     <Fragment key={book.id}>
       <Link to={`/mybooks/${book.id}`} className={classes.editBtn}>
         Edit
@@ -122,9 +144,25 @@ const MyBooks = () => {
     </Fragment>
   );
 
+  const searchingNSorting = <div className={classes.sorting}>
+    <button onClick={changeSortingHandler}>
+      Sort {isSortingAscending ? "Descending" : "Ascending"}
+    </button>
+
+    <input
+      type="text"
+      name="search"
+      value={searchValue}
+      className={classes.searchBook}
+      placeholder="Search Book..."
+      onChange={e => setSearchValue(e.target.value)}
+    />
+  </div>
+
   return (
     <section className={classes.books}>
       <Card>
+        {searchingNSorting}
         {isModalShown && <AddMyBook onHideModal={hideModalHandler} />}
         <ShowAddBookButton onShowModal={showModalHandler} />
         {isBookEmpty && (

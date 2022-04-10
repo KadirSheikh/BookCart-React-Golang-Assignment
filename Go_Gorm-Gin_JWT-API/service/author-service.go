@@ -14,6 +14,7 @@ type AuthorService interface {
 	Update(author dto.AuthorUpdateDTO) modal.Author
 	All() []modal.Author
 	Profile(authorID string) modal.Author
+	GetById(authorID uint64) modal.Author
 }
 
 type authorService struct {
@@ -43,4 +44,8 @@ func (service *authorService) All() []modal.Author {
 
 func (service *authorService) Profile(authorID string) modal.Author {
 	return service.authorRepository.ProfileAuthor(authorID)
+}
+
+func (service *authorService) GetById(authorID uint64) modal.Author {
+	return service.authorRepository.GetAuthor(authorID)
 }

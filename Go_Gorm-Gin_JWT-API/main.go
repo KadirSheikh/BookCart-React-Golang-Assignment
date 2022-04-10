@@ -58,6 +58,7 @@ func main() {
 	authorRoutes := r.Group("api/author", middleware.AuthorizeJWT(jwtService))
 	{
 		authorRoutes.GET("/", authorController.GetAll)
+		authorRoutes.GET("/:id", authorController.Get)
 		authorRoutes.GET("/profile", authorController.Profile)
 		authorRoutes.PUT("/profile", authorController.Update)
 	}
