@@ -1,5 +1,5 @@
-import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
-import React, { useState } from "react";
+import { Route, Routes, Navigate } from "react-router-dom";
+import React, { useState, Fragment } from "react";
 import Header from "./components/Layout/Header";
 import Books from "./components/Book/Books";
 import Profile from "./components/Profile/Profile";
@@ -7,11 +7,10 @@ import Login from "./components/Authentication/Login";
 import Registration from "./components/Authentication/Registration";
 import MyBooks from "./components/Book/MyBooks";
 import EditMyBook from "./components/Book/EditMyBook";
-import Authors from "./components/Author/Authors"
+import Authors from "./components/Author/Authors";
 
 function App() {
   const [isProfileShown, setIsProfileShown] = useState(false);
-
   const showProfileHandler = () => {
     setIsProfileShown(true);
   };
@@ -30,7 +29,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <Fragment>
       {isProfileShown && <Profile onHideProfile={hideProfileHandler} />}
       <Header onShowProfile={showProfileHandler} />
       <Routes>
@@ -46,7 +45,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Registration />} />
       </Routes>
-    </BrowserRouter>
+    </Fragment>
   );
 }
 

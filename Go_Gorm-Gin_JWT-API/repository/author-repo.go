@@ -57,6 +57,8 @@ func (db *authorConnection) UpdateAuthor(author modal.Author) modal.Author {
 func (db *authorConnection) VerifyCredential(email string, password string) interface{} {
 	var author modal.Author
 	res := db.connection.Where("email = ?", email).Take(&author)
+	// SELECT * FROM authors WHERE email=email LIMIT 1;
+
 	if res.Error == nil {
 		return author
 	}
@@ -80,6 +82,7 @@ func (db *authorConnection) FindByEmail(email string) modal.Author {
 func (db *authorConnection) ProfileAuthor(authorID string) modal.Author {
 	var author modal.Author
 	db.connection.Preload("Books").Preload("Books.Author").Find(&author, authorID)
+	//select * from author where id = authorID
 	return author
 }
 

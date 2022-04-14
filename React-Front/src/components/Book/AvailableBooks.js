@@ -6,8 +6,6 @@ import { getAllAvailableBooks } from "../../lib/api";
 import { Fragment } from "react/cjs/react.production.min";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-
-
 const sortBooks = (books, ascending) => {
   return books.sort((bookA, bookB) => {
     if (ascending) {
@@ -28,10 +26,7 @@ const AvailableBooks = () => {
   const [isBookEmpty, setIsBookEmpty] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
-
-
   useEffect(() => {
-
     getAllAvailableBooks()
       .then((data) => {
         console.log(data);
@@ -50,8 +45,6 @@ const AvailableBooks = () => {
       });
   }, []);
 
-
-
   const isSortingAscending = searchParams.get("sort") === "asc";
   const sortedBooks = sortBooks(books, isSortingAscending);
 
@@ -67,52 +60,58 @@ const AvailableBooks = () => {
     );
   }
 
-  const bookList = sortedBooks.filter(book => book.name.match(new RegExp(searchValue, "i"))).map((book) => (
-    <BookItem
-      key={book.id}
-      id={book.id}
-      name={book.name}
-      description={book.description}
-      author={book.author}
-    />
-  ));
+  const bookList = sortedBooks
+    .filter((book) => book.name.match(new RegExp(searchValue, "i")))
+    .map((book) => (
+      <BookItem
+        key={book.id}
+        id={book.id}
+        name={book.name}
+        description={book.description}
+        author={book.author}
+      />
+    ));
 
-  const booksData = <Fragment>
-    {error && (
-      <section className={classes.BooksError}>
-        <p>{error}</p>
-      </section>
-    )}
-    <ul>{bookList}</ul>
+  const searchValueHandler = (e) => {
+    setSearchValue(e.target.value);
+    console.log(bookList.length);
+  };
 
-  </Fragment>
+  const booksData = (
+    <Fragment>
+      {error && (
+        <section className={classes.BooksError}>
+          <p>{error}</p>
+        </section>
+      )}
+      <ul>{bookList}</ul>
+    </Fragment>
+  );
 
-  const searchingNSorting = <div className={classes.sorting}>
-    <button onClick={changeSortingHandler}>
-      Sort {isSortingAscending ? "Descending" : "Ascending"}
-    </button>
+  const searchingNSorting = (
+    <div className={classes.sorting}>
+      <button onClick={changeSortingHandler}>
+        Sort {isSortingAscending ? "Descending" : "Ascending"}
+      </button>
 
-    <input
-      type="text"
-      name="search"
-      value={searchValue}
-      className={classes.searchBook}
-      placeholder="Search Book..."
-      onChange={e => setSearchValue(e.target.value)}
-    />
-  </div>
+      <input
+        type="text"
+        name="search"
+        value={searchValue}
+        className={classes.searchBook}
+        placeholder="Search Book..."
+        onChange={searchValueHandler}
+      />
+    </div>
+  );
 
   return (
     <section className={classes.books}>
       <Card>
         {searchingNSorting}
-        {isBookEmpty && (
-          <p className={classes.BooksError}>No books found.</p>
-        )}
+        {isBookEmpty && <p className={classes.BooksError}>No books found.</p>}
         {!isBookEmpty && booksData}
-
       </Card>
-
     </section>
   );
 };
