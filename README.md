@@ -73,9 +73,10 @@ $ npm start
 
 ![Screenshot (219)](https://user-images.githubusercontent.com/52908403/162371389-6c25b26d-a093-4df0-98e0-ad144010ccf4.png)
 
-3. Home page enlisting all books by name, description and author
+3. Home page enlisting all books by name, description and author with sorting and searching.
 
-![Screenshot (222)](https://user-images.githubusercontent.com/52908403/162371481-5d65e7d1-4d0e-4cbc-877e-f72dfca44082.png)
+![Screenshot (10)](https://user-images.githubusercontent.com/52908403/163354472-524ff327-8c49-4734-beb2-ac5fb526e26a.png)
+
 
 4. Profile modal for editing author details i.e name and email
 
@@ -85,9 +86,10 @@ $ npm start
 
 ![Screenshot (224)](https://user-images.githubusercontent.com/52908403/162371692-1d18eb19-8f76-4020-bd7d-54381cceb057.png)
 
-6. View my all books.
+6. View my all books with sorting and searching.
 
-![Screenshot (225)](https://user-images.githubusercontent.com/52908403/162371747-90e1e74a-75d1-4c15-a40c-ff458aec4c8e.png)
+![Screenshot (12)](https://user-images.githubusercontent.com/52908403/163354659-88429bef-6130-4c96-b169-b5c83b6f224d.png)
+
 
 7. Delete existing book. 
 
@@ -101,6 +103,11 @@ $ npm start
 9. Edit existing book.
 
 ![Screenshot (227)](https://user-images.githubusercontent.com/52908403/162371898-d1514bfb-f966-4240-a3a0-6e1fd87365df.png)
+
+10. List of all registered authors with sorting and searching.
+
+![Screenshot (11)](https://user-images.githubusercontent.com/52908403/163354790-d5d01746-e3c8-4027-aa68-36ba6ddba38a.png)
+
 
 
 
